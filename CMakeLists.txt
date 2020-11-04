@@ -62,6 +62,7 @@ set(HEADERS
 	zrlib/base/Bits/Bits.h
 	zrlib/base/Iterator/FilterIterator.h
 	zrlib/base/Iterator/Iterator.h
+	zrlib/base/macro/macro_rec.h
 	zrlib/base/macro.h
 	zrlib/base/math.h
 	zrlib/base/struct.h
