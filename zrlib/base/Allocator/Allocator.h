@@ -55,7 +55,7 @@ static inline void ZRFREE(ZRAllocator *allocator, void *allocated)
 	allocator->ffree(allocator, allocated);
 }
 
-#define _ZRALLOC_VARIABLE(POS,V) V = ZRARRAYOP_GET(mem,1,infos[POS].offset);
+#define _ZRALLOC_VARIABLE(depth,V) V = ZRARRAYOP_GET(mem,1,infos[depth].offset);
 
 /*
  * Alloc a unique memory object able to store multiple variables given in parameter.
@@ -68,7 +68,7 @@ static inline void ZRFREE(ZRAllocator *allocator, void *allocated)
 	ZRObjAlignInfos infos[] = { ZRARGS_XODD(ZROBJINFOS_CPYOBJALIGNINFOS, __VA_ARGS__), ZROBJALIGNINFOS_DEF0() }; \
 	ZRStruct_bestOffsetsPos(ZRCARRAY_NBOBJ(infos) - 1, infos, 1); \
 	void *mem = ZROBJALLOC(allocator, ZROBJALIGNINFOS_CPYOBJINFOS(infos[ZRCARRAY_NBOBJ(infos) - 1])); \
-	ZRARGS_XCAPPLY(_ZRALLOC_VARIABLE, ZRARGS_EVEN(__VA_ARGS__)) \
+	ZRARGS_XAPPLY_E(_ZRALLOC_VARIABLE, ZRXARGS_D, ZRARGS_EVEN(__VA_ARGS__)) \
 	)
 
 #define ZRALLOC_VARIABLES_E(allocator, ...) ZREVAL(ZRALLOC_VARIABLES(allocator, __VA_ARGS__))
