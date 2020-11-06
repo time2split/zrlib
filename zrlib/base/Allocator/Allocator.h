@@ -72,6 +72,7 @@ static inline void ZRFREE(ZRAllocator *allocator, void *allocated)
 	)
 
 #define ZRALLOC_VARIABLES_E(allocator, ...) ZREVAL(ZRALLOC_VARIABLES(allocator, __VA_ARGS__))
+#define ZRALLOC_TVARIABLES(allocator, ...)  ZRALLOC_VARIABLES(allocator, ZRLIST_VARIABLESP_OBJINFOS(__VA_ARGS__))
 
 /**
  * Same as ZRALLOC_VARIABLES but arguments are passed as an array of ZRObjetP where object pointed must be of void** type.
