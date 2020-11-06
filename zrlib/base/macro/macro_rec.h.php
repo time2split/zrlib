@@ -168,26 +168,34 @@ for($i = 0; $i <= $CONFIG['nargs.max']; $i++)
 #define ZRARGS_EVEN_E(...)    ZREVAL(ZRARGS_EVEN(__VA_ARGS__))
 #define ZRARGS_ODD_E(...)     ZREVAL(ZRARGS_ODD(__VA_ARGS__))
 
-#define _ZRARGS_XCAPPLY(X, nb_total, depth, rest, V, ...) \
+#define ZRXARGS_NDR(nb,depth,rest) nb,depth,rest,
+#define ZRXARGS_ND(nb,depth,rest) nb,depth,
+#define ZRXARGS_NR(nb,depth,rest) nb,rest,
+#define ZRXARGS_DR(nb,depth,rest) depth,rest,
+#define ZRXARGS_N(nb,depth,rest) nb,
+#define ZRXARGS_D(nb,depth,rest) depth,
+#define ZRXARGS_R(nb,depth,rest) rest,
+#define ZRXARGS_(nb,depth,rest)
+
+#define _ZRARGS_XAPPLY(X, XARGS, nb_total, depth, rest, V, ...) \
 	ZRWHEN(rest) \
 	( \
-		X(nb_total,depth,V) \
-		_ZRARGS_XCAPPLY_INDIRECT ZRDEFER2() () (X,nb_total,ZRINC(depth),ZRDEC(rest),__VA_ARGS__) \
+		X ZRDEFER1() (XARGS(nb_total,depth,ZRDEC(rest)) V) \
+		_ZRARGS_XAPPLY_INDIRECT ZRDEFER2() () (X,XARGS,nb_total,ZRINC(depth),ZRDEC(rest),__VA_ARGS__) \
 	)
-#define _ZRARGS_XCAPPLY_INDIRECT() _ZRARGS_XCAPPLY
-#define ZRARGS_XCAPPLY(X,...) _ZRARGS_XCAPPLY(X,ZRNARGS(__VA_ARGS__),0,ZRNARGS(__VA_ARGS__),__VA_ARGS__) \
+#define _ZRARGS_XAPPLY_INDIRECT() _ZRARGS_XAPPLY
+#define ZRARGS_XAPPLY(X,XARGS,...) _ZRARGS_XAPPLY(X,XARGS,ZRNARGS(__VA_ARGS__),0,ZRNARGS(__VA_ARGS__),__VA_ARGS__)
+#define ZRARGS_XAPPLY_E(X,XARGS,...) ZREVAL(ZRARGS_XAPPLY(X,XARGS,__VA_ARGS__))
 
-#define ZRARGS_XCAPPLY_E(X,...) ZREVAL(ZRARGS_XCAPPLY(X,__VA_ARGS__))
-
-#define _ZRARGS_XCAPPLYREC(X, nb_total, depth, rest, A, B, ...) \
-	X ZRDEFERN(ZRINC(rest)) (nb_total,depth, A, \
+#define _ZRARGS_XAPPLYREC(X, XARGS, nb_total, depth, rest, A, B, ...) \
+	X ZRDEFERN(ZRINC(rest)) (XARGS(nb_total,depth,rest) A, \
 	ZRWHENELSE(rest) \
 	( \
-		_ZRARGS_XCAPPLYREC_INDIRECT ZRDEFER2() () (X, nb_total, ZRINC(depth), ZRDEC(rest), B, __VA_ARGS__) \
+		_ZRARGS_XAPPLYREC_INDIRECT ZRDEFER2() () (X, XARGS, nb_total, ZRINC(depth), ZRDEC(rest), B, __VA_ARGS__) \
 	) \
 	(B))
-#define _ZRARGS_XCAPPLYREC_INDIRECT() _ZRARGS_XCAPPLYREC
-#define ZRARGS_XCAPPLYREC(X,...) _ZRARGS_XCAPPLYREC(X, ZRNARGS(__VA_ARGS__),0,ZRDEC(ZRDEC(ZRNARGS(__VA_ARGS__))),__VA_ARGS__)
-#define ZRARGS_XCAPPLYREC_E(X,...) ZREVAL(ZRARGS_XCAPPLYREC(X,__VA_ARGS__))
+#define _ZRARGS_XAPPLYREC_INDIRECT() _ZRARGS_XAPPLYREC
+#define ZRARGS_XAPPLYREC(X,XARGS,...) _ZRARGS_XAPPLYREC(X,XARGS,ZRNARGS(__VA_ARGS__),0,ZRDEC(ZRDEC(ZRNARGS(__VA_ARGS__))),__VA_ARGS__)
+#define ZRARGS_XAPPLYREC_E(X,XARGS,...) ZREVAL(ZRARGS_XAPPLYREC(X,XARGS,__VA_ARGS__))
 
 #endif
