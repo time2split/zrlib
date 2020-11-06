@@ -65,13 +65,11 @@ static inline void ZRFREE(ZRAllocator *allocator, void *allocated)
  * The first variable point to the memory and must be free after use.
  */
 #define ZRALLOC_VARIABLES(allocator, ...) ZRBLOCK( \
-	ZRObjAlignInfos infos[] = { ZRARGS_XODD(ZROBJINFOS_CPYOBJALIGNINFOS, __VA_ARGS__), ZROBJALIGNINFOS_DEF0() }; \
+	ZRObjAlignInfos infos[] = { ZRARGS_XODD_E(ZROBJINFOS_CPYOBJALIGNINFOS, __VA_ARGS__), ZROBJALIGNINFOS_DEF0() }; \
 	ZRStruct_bestOffsetsPos(ZRCARRAY_NBOBJ(infos) - 1, infos, 1); \
 	void *mem = ZROBJALLOC(allocator, ZROBJALIGNINFOS_CPYOBJINFOS(infos[ZRCARRAY_NBOBJ(infos) - 1])); \
 	ZRARGS_XAPPLY_E(_ZRALLOC_VARIABLE, ZRXARGS_D, ZRARGS_EVEN(__VA_ARGS__)) \
 	)
-
-#define ZRALLOC_VARIABLES_E(allocator, ...) ZREVAL(ZRALLOC_VARIABLES(allocator, __VA_ARGS__))
 #define ZRALLOC_TVARIABLES(allocator, ...)  ZRALLOC_VARIABLES(allocator, ZRLIST_VARIABLESP_OBJINFOS(__VA_ARGS__))
 
 /**
