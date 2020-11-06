@@ -56,16 +56,13 @@ typedef int (*zrfucmp)(void *a, void *b, void *data);
 #define ZRCONCAT_4(_1,_2,_3,_4) ZRCONCAT_2(_1, ZRCONCAT_3(_2,_3,_4))
 #define ZRCONCAT_(A,B) A ## B
 
-#define ZRMAX(...) ZRCONCAT(ZRMAX_,ZRNARGS(__VA_ARGS__))(__VA_ARGS__)
-#define ZRMIN(...) ZRCONCAT(ZRMIN_,ZRNARGS(__VA_ARGS__))(__VA_ARGS__)
-
 #define ZRMIN_2(a,b) ((a) < (b) ? (a) : (b))
-#define ZRMIN_3(a,b,c) ZRMIN_2(a,ZRMIN_2(b,c))
-#define ZRMIN_4(a,b,c,d) ZRMIN_2(ZRMIN_2(a,b),ZRMIN_2(c,d))
+#define ZRMIN_X(A,B) ZRMIN_2(A,B)
+#define ZRMIN(...) ZRARGS_XAPPLYREC_E(ZRMIN_X,ZRXARGS_,__VA_ARGS__)
 
 #define ZRMAX_2(a,b) ((a) > (b) ? (a) : (b))
-#define ZRMAX_3(a,b,c) ZRMAX_2(a,ZRMAX_2(b,c))
-#define ZRMAX_4(a,b,c,d) ZRMAX_2(ZRMAX_2(a,b),ZRMAX_2(c,d))
+#define ZRMAX_X(A,B) ZRMAX_2(A,B)
+#define ZRMAX(...) ZRARGS_XAPPLYREC_E(ZRMAX_X,ZRXARGS_,__VA_ARGS__)
 
 #define ZRISPOW2(I) (((I) & ((I) - 1)) == 0)
 #define ZRISPOW2SAFE(I) ((I) > 0 && ZRISPOW2(I))
