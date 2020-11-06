@@ -50,6 +50,11 @@ typedef int (*zrfucmp)(void *a, void *b, void *data);
 #define ZRSIZE_UNKNOWN SIZE_MAX
 #define ZRTOSTRING(V) #V
 
+#define _ZRLIST_VPOI_X(rest,V) V, ZRTYPE_OBJINFOS(*V) ZRIF(rest)(ZRPARENTHESIS())
+#define ZRLIST_VARIABLESP_OBJINFOS(...) ZRARGS_XAPPLY_E(_ZRLIST_VPOI_X,ZRXARGS_R,__VA_ARGS__)
+
+#define ZRPARENTHESIS() ,
+
 #define ZRCONCAT(_1,_2)         ZRCONCAT_2(_1,_2)
 #define ZRCONCAT_2(_1,_2)       ZRCONCAT_(_1,_2)
 #define ZRCONCAT_3(_1,_2,_3)    ZRCONCAT_2(_1, ZRCONCAT_2(_2,_3))
