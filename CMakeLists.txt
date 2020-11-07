@@ -91,3 +91,10 @@ set(HEADERS
 add_compile_options(-std=c11)
 add_library(zrlib ${SRCS} ${HEADERS})
 set_property(TARGET zrlib PROPERTY C_STANDARD 11)
+
+add_custom_target(GeneratePHP
+	COMMAND php ./scripts/main.php
+	WORKING_DIRECTORY ./
+	COMMENT "Generate php files"
+)
+add_dependencies(zrlib GeneratePHP)
