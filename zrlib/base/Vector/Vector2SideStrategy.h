@@ -42,6 +42,7 @@ void ZRVector2SideStrategyIInfos_staticStrategy(void *iinfos);
 /**
  * The ObjInfos of the vector object.
  */
+ZRObjAlignInfos ZRVector2SideStrategy_objAlignInfos(void *infos);
 ZRObjInfos ZRVector2SideStrategy_objInfos(void *iinfos);
 
 void ZRVector2SideStrategy_init(ZRVector *vector, void *iinfos);

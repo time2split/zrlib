@@ -767,6 +767,12 @@ void ZRVector2SideStrategyIInfos_staticStrategy(void *infos_out)
 	ZRVector2SideStrategyIInfos_validate(initInfos);
 }
 
+ZRObjAlignInfos ZRVector2SideStrategy_objAlignInfos(void *infos)
+{
+	ZR2SSInitInfos *initInfos = (ZR2SSInitInfos*)infos;
+	return initInfos->vectorInfos[ZRVectorInfos_struct];
+}
+
 ZRObjInfos ZRVector2SideStrategy_objInfos(void *infos)
 {
 	ZR2SSInitInfos *initInfos = (ZR2SSInitInfos*)infos;
