@@ -32,8 +32,9 @@ typedef int (*zrfucmp)(void *a, void *b, void *data);
 )
 
 #define ZRPTYPE_CPY(a,b) memcpy((a), (b), sizeof(*a))
+#define ZRPTYPE_CPY_NB(a,b,NB) memcpy((a), (b), sizeof(*a) * (NB))
 #define ZRPTYPE_0(a) memset((a), 0, sizeof(*a))
-#define ZRPTYPE_OBJECTP(a) ZROBJECTP_DEF( ZROBJINFOS_DEF(alignof(*a), sizeof(*a)), a)
+#define ZRPTYPE_OBJECTP(a) ZROBJECTP_DEF( ZROBJINFOS_DEF(alignof(*a), sizeof(*a)), (a))
 
 #define ZRSTRING_OBJECTP(S) ZROBJECTP_DEF( ZROBJINFOS_DEF(alignof(char), strlen(S) + 1), S )
 
@@ -54,6 +55,8 @@ typedef int (*zrfucmp)(void *a, void *b, void *data);
 #define ZRLIST_VARIABLESP_OBJINFOS(...) ZRARGS_XAPPLY_E(_ZRLIST_VPOI_X,ZRXARGS_R,__VA_ARGS__)
 
 #define ZRPARENTHESIS() ,
+
+#define ZRPREARGS(...) ZRWHEN(ZRARGS_NEMPTY(__VA_ARGS__))(__VA_ARGS__,)
 
 #define ZRCONCAT(_1,_2)         ZRCONCAT_2(_1,_2)
 #define ZRCONCAT_2(_1,_2)       ZRCONCAT_(_1,_2)
