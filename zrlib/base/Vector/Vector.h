@@ -139,7 +139,13 @@ static inline void* ZRVECTOR_GET(ZRVector *vec, size_t pos)
 }
 
 ZRMUSTINLINE
-static inline void ZRVECTOR_GET_NB(ZRVector *vec, size_t pos, size_t nb, void *dest)
+static inline void ZRVECTOR_CPY(ZRVector *vec, size_t pos, void *dest)
+{
+	ZRARRAYOP_CPY(dest, ZRVECTOR_OBJSIZE(vec), 1, ZRVECTOR_GET(vec, pos));
+}
+
+ZRMUSTINLINE
+static inline void ZRVECTOR_CPY_NB(ZRVector *vec, size_t pos, size_t nb, void *dest)
 {
 	ZRARRAYOP_CPY(dest, ZRVECTOR_OBJSIZE(vec), nb, ZRVECTOR_GET(vec, pos));
 }
@@ -345,7 +351,8 @@ size_t ZRVector_objSize(ZRVector *vec);
 size_t ZRVector_objAlignment(ZRVector *vec);
 
 void* ZRVector_get(__ ZRVector *vec, size_t pos);
-void _ ZRVector_get_nb(ZRVector *vec, size_t pos, size_t nb, void *restrict dest);
+void _ ZRVector_cpy(__ ZRVector *vec, size_t pos, __________ void *restrict dest);
+void _ ZRVector_cpy_nb(ZRVector *vec, size_t pos, size_t nb, void *restrict dest);
 void _ ZRVector_set(__ ZRVector *vec, size_t pos, __________ void *obj);
 void _ ZRVector_set_nb(ZRVector *vec, size_t pos, size_t nb, void *src);
 void _ ZRVector_fill(_ ZRVector *vec, size_t pos, size_t nb, void *obj);

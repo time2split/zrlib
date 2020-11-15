@@ -98,9 +98,14 @@ void* ZRVector_get(ZRVector *vec, size_t pos)
 	return ZRVECTOR_GET(vec, pos);
 }
 
-void ZRVector_get_nb(ZRVector *vec, size_t pos, size_t nb, void *dest)
+void ZRVector_cpy(ZRVector *vec, size_t pos, void *dest)
 {
-	return ZRVECTOR_GET_NB(vec, pos, nb, dest);
+	return ZRVECTOR_CPY(vec, pos, dest);
+}
+
+void ZRVector_cpy_nb(ZRVector *vec, size_t pos, size_t nb, void *dest)
+{
+	return ZRVECTOR_CPY_NB(vec, pos, nb, dest);
 }
 
 void ZRVector_set(ZRVector *vec, size_t pos, void *obj)
