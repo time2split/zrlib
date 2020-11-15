@@ -38,6 +38,12 @@ static inline void* ZRAALLOC(ZRAllocator *allocator, size_t alignment, size_t nb
 }
 
 ZRMUSTINLINE
+static inline void* ZROBJALLOC_NB(ZRAllocator *allocator, ZRObjInfos objInfos, size_t nb)
+{
+	return allocator->faalloc(allocator, ZROBJINFOS_ALIGNMENT_SIZE(objInfos) * nb);
+}
+
+ZRMUSTINLINE
 static inline void* ZROBJALLOC(ZRAllocator *allocator, ZRObjInfos objInfos)
 {
 	return allocator->faalloc(allocator, ZROBJINFOS_ALIGNMENT_SIZE(objInfos));
