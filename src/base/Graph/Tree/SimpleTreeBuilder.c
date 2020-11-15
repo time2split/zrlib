@@ -77,7 +77,7 @@ static void fBuilder_node(ZRTreeBuilder *tbuilder, void *nodeData, void *edgeDat
 		ZRSimpleTreeBuilderNode *parent = ZRSTB_CURRENTNODE(builder);
 		size_t const nodePos = ZRVECTOR_NBOBJ(parent->childs);
 
-		ZRVECTOR_RESERVE(parent->childs, nodePos, 1);
+		ZRVECTOR_RESERVE(parent->childs, nodePos);
 		node = ZRVECTOR_GET(parent->childs, nodePos);
 	}
 	sbnode_add(builder, node, parent, nodeData, edgeData);

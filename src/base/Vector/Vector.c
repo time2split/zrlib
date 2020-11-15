@@ -118,9 +118,14 @@ void ZRVector_fill(_ ZRVector *vec, size_t pos, size_t nb, void *obj)
 	ZRVECTOR_FILL(vec, pos, nb, obj);
 }
 
-void ZRVector_reserve(ZRVector *vec, size_t pos, size_t nb)
+void ZRVector_reserve(ZRVector *vec, size_t pos)
 {
-	ZRVECTOR_RESERVE(vec, pos, nb);
+	ZRVECTOR_RESERVE(vec, pos);
+}
+
+void ZRVector_reserve_nb(ZRVector *vec, size_t pos, size_t nb)
+{
+	ZRVECTOR_RESERVE_NB(vec, pos, nb);
 }
 
 void ZRVector_add(ZRVector *vec, void *obj)

@@ -108,7 +108,7 @@ ZRMUSTINLINE
 static inline void reserve_object(ZRTable *table, size_t line, size_t nb)
 {
 	VectorTable *vtable = VT(table);
-	ZRVECTOR_RESERVE(vtable->objects, line, nb);
+	ZRVECTOR_RESERVE_NB(vtable->objects, line, nb);
 }
 
 static void freserve_object(ZRTable *table, size_t line, size_t nb)
@@ -233,7 +233,7 @@ static inline void reserve_column(ZRTable *table, size_t line, size_t nb)
 	size_t nbCols = table->nbColumns;
 
 	for (size_t i = 0; i < nbCols; i++)
-		ZRVECTOR_RESERVE(vtable->columns[i], line, nb);
+		ZRVECTOR_RESERVE_NB(vtable->columns[i], line, nb);
 }
 
 static void freserve_column(ZRTable *table, size_t line, size_t nb)

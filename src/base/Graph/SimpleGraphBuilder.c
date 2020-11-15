@@ -313,7 +313,7 @@ static void fbuilder_edge(ZRGraphBuilder *builder, ZRGraphBuilderNode *a, ZRGrap
 		if (NULL == edgeData)
 		{
 			size_t const pos = ZRVECTOR_NBOBJ(sa->childEdgeObjs);
-			ZRVECTOR_RESERVE(sa->childEdgeObjs, pos, 1);
+			ZRVECTOR_RESERVE(sa->childEdgeObjs, pos);
 			memset(ZRVECTOR_GET(sa->childEdgeObjs, pos), 0, sbuilder->edgeObjInfos.size);
 		}
 		else

@@ -190,7 +190,13 @@ static inline void ZRVECTOR_FILL(ZRVector *vec, size_t pos, size_t nb, void *obj
 }
 
 ZRMUSTINLINE
-static inline void ZRVECTOR_RESERVE(ZRVector *vec, size_t pos, size_t nb)
+static inline void ZRVECTOR_RESERVE(ZRVector *vec, size_t pos)
+{
+	vec->strategy->finsert(vec, pos, 1);
+}
+
+ZRMUSTINLINE
+static inline void ZRVECTOR_RESERVE_NB(ZRVector *vec, size_t pos, size_t nb)
 {
 	vec->strategy->finsert(vec, pos, nb);
 }
@@ -343,7 +349,8 @@ void _ ZRVector_get_nb(ZRVector *vec, size_t pos, size_t nb, void *restrict dest
 void _ ZRVector_set(__ ZRVector *vec, size_t pos, __________ void *obj);
 void _ ZRVector_set_nb(ZRVector *vec, size_t pos, size_t nb, void *src);
 void _ ZRVector_fill(_ ZRVector *vec, size_t pos, size_t nb, void *obj);
-void _ ZRVector_reserve(ZRVector *vec, size_t pos, size_t nb);
+void _ ZRVector_reserve(__ ZRVector *vec, size_t pos);
+void _ ZRVector_reserve_nb(ZRVector *vec, size_t pos, size_t nb);
 
 void ZRVector_insert(__ ZRVector *vec, size_t pos, __________ void *obj);
 void ZRVector_insert_nb(ZRVector *vec, size_t pos, size_t nb, void *src);
