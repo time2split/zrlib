@@ -15,8 +15,16 @@
 
 // ============================================================================
 
-#define ZRARRAYOP_GET(offset, objSize, pos) \
+#define ZRARRAYOP_GET(offset, ...) ZRCONCAT(ZRARRAYOP_GET,ZRNARGS(__VA_ARGS__))(offset,__VA_ARGS__)
+
+#define ZRARRAYOP_GET1(offset, pos) \
+	(void*)((char*)(offset) + (pos))
+
+#define ZRARRAYOP_GET2(offset, objSize, pos) \
 	(void*)((char*)(offset) + (pos) * (objSize))
+
+#define ZRARRAYOP_GET3(offset, objSize, pos, offset2) \
+	(void*)((char*)(offset) + (pos) * (objSize) + (offset2))
 
 #define ZRARRAYOP_SET(offset, objSize, pos, source) \
 	memcpy(ZRARRAYOP_GET(offset, objSize, pos), (source), (objSize))
