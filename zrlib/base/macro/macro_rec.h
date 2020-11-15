@@ -2336,6 +2336,16 @@
 #define ZRARGS_XAPPLY(X,XARGS,...) _ZRARGS_XAPPLY(X,XARGS,ZRNARGS(__VA_ARGS__),0,ZRNARGS(__VA_ARGS__),__VA_ARGS__)
 #define ZRARGS_XAPPLY_E(X,XARGS,...) ZREVAL(ZRARGS_XAPPLY(X,XARGS,__VA_ARGS__))
 
+#define _ZRARGS_XAPPLY_DATA(X, XARGS, data_list, nb_total, depth, rest, V, ...) \
+	ZRWHEN(rest) \
+	( \
+		X ZRDEFER1() (ZRPREARGS (ZREXPAND data_list) XARGS(nb_total,depth,ZRDEC(rest)) V) \
+		_ZRARGS_XAPPLY_DATA_INDIRECT ZRDEFER2() () (X,XARGS,data_list,nb_total,ZRINC(depth),ZRDEC(rest),__VA_ARGS__) \
+	)
+#define _ZRARGS_XAPPLY_DATA_INDIRECT() _ZRARGS_XAPPLY_DATA
+#define ZRARGS_XAPPLY_DATA(X,XARGS,data_list,...) _ZRARGS_XAPPLY_DATA(X,XARGS,data_list,ZRNARGS(__VA_ARGS__),0,ZRNARGS(__VA_ARGS__),__VA_ARGS__)
+#define ZRARGS_XAPPLY_DATA_E(X,XARGS,data_list,...) ZREVAL(ZRARGS_XAPPLY_DATA(X,XARGS,data_list,__VA_ARGS__))
+
 #define _ZRARGS_XAPPLYREC(X, XARGS, nb_total, depth, rest, A, B, ...) \
 	X ZRDEFERN(ZRINC(rest)) (XARGS(nb_total,depth,rest) A, \
 	ZRWHENELSE(rest) \
