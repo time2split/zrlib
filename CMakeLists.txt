@@ -44,6 +44,8 @@ set(SRCS
 	src/base/MemoryPool/MemoryPool.c
 	src/base/MemoryPool/MPoolDynamicStrategy.c
 	src/base/MemoryPool/MPoolReserve.c
+	src/base/Table/Table.c
+	src/base/Table/VectorTable.c
 	src/lib/init.c
     )
     
@@ -84,6 +86,8 @@ set(HEADERS
 	zrlib/base/MemoryPool/MemoryPool.h
 	zrlib/base/MemoryPool/MPoolDynamicStrategy.h
 	zrlib/base/MemoryPool/MPoolReserve.h
+	zrlib/base/Table/Table.h
+	zrlib/base/Table/VectorTable.h
 	zrlib/lib/init.h
 	zrlib/config.h
     )
