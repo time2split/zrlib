@@ -81,6 +81,49 @@ typedef struct ZRObjAlignInfosS
 #define ZROBJALIGNINFOS_DEF(O,A,S)  ((ZRObjAlignInfos) { (O), (A), (S) })
 #define ZROBJALIGNINFOS_DEF0()      ((ZRObjAlignInfos) { 0, 0, 0 })
 #define ZROBJALIGNINFOS_DEF_AS(A,S) ((ZRObjAlignInfos) { 0, (A), (S) })
+#define ZROBJALIGNINFOS_NB(OA,NB)   ((ZRObjAlignInfos) { (OA)->offset, (OA)->alignment, (OA)->size * NB })
+
+#define ZRTYPE_PTR0(T) ((T*)NULL)
+#define ZRSTRUCT_OAI_X(STRUCT,FIELD) ZROBJALIGNINFOS_DEF(offsetof(STRUCT,FIELD), alignof(ZRTYPE_PTR0(STRUCT)->FIELD), sizeof(ZRTYPE_PTR0(STRUCT)->FIELD)),
+
+#define ZRSTRUCT_OAI(STRUCT,...)   ZRARGS_XAPPLY_DATA(ZRSTRUCT_OAI_X, ZRXARGS_, (STRUCT), __VA_ARGS__) ZRTYPE_OBJALIGNINFOS(STRUCT)
+#define ZRSTRUCT_OAI_E(STRUCT,...) ZREVAL(ZRSTRUCT_OAI(STRUCT,__VA_ARGS__))
+
+ZRMUSTINLINE
+static inline void ZRSTRUCT_CPY_OAI_VALUE(void *value, ZRObjAlignInfos destInfos, void *objDest)
+{
+	memcpy(ZRARRAYOP_GET(objDest, destInfos.offset), value, destInfos.size);
+}
+
+ZRMUSTINLINE
+static inline void ZRSTRUCT_CPY_OAI_OFFSET(void *obj, size_t offset, ZRObjAlignInfos destInfos, void *objDest)
+{
+	ZRSTRUCT_CPY_OAI_VALUE(ZRARRAYOP_GET(obj, offset), destInfos, objDest);
+}
+
+ZRMUSTINLINE
+static inline void ZRSTRUCT_CPY_OAI_VALUES(void *vals[], ZRObjAlignInfos *destInfos, size_t nbInfos, void *objDest)
+{
+	for (size_t i = 0; i < nbInfos; i++)
+		ZRSTRUCT_CPY_OAI_VALUE(vals[i], destInfos[i], objDest);
+}
+
+ZRMUSTINLINE
+static inline void ZRSTRUCT_CPY_OAI(void *obj, ZRObjAlignInfos *objInfos, ZRObjAlignInfos *destInfos, size_t nbInfos, void *objDest)
+{
+	for (size_t i = 0; i < nbInfos; i++)
+		ZRSTRUCT_CPY_OAI_OFFSET(obj, objInfos[i].offset, destInfos[i], objDest);
+}
+
+ZRMUSTINLINE
+static inline void ZRSTRUCT_CPY_OAI_NB(void *obj, ZRObjAlignInfos *objInfos, ZRObjAlignInfos *destInfos, size_t nbInfos, size_t nbCpy, void *objDest)
+{
+	size_t const objSize = objInfos[nbInfos].size;
+	size_t const destSize = destInfos[nbInfos].size;
+
+	for (size_t i = 0; i < nbCpy; i++)
+		ZRSTRUCT_CPY_OAI(ZRARRAYOP_GET(obj, objSize, i), objInfos, destInfos, nbInfos, ZRARRAYOP_GET(objDest, destSize, i));
+}
 
 ZRMUSTINLINE
 static inline ZRObjAlignInfos ZROBJINFOS_CPYOBJALIGNINFOS(ZRObjInfos objInfos)
