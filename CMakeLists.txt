@@ -102,3 +102,9 @@ add_custom_target(GeneratePHP
 	COMMENT "Generate php files"
 )
 add_dependencies(zrlib GeneratePHP)
+
+add_custom_target(CleanPHP
+	COMMAND php ./scripts/main.php clean
+	WORKING_DIRECTORY ./
+	COMMENT "Clean php files"
+)
