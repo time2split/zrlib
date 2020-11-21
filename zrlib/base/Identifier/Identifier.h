@@ -11,6 +11,9 @@
 
 #include <stdbool.h>
 
+#pragma zrlib conf generate.target "/src/base/Identifier/Identifier.c" "."
+#pragma zrlib conf generate.prefix ZRIdentifier_
+
 // ============================================================================
 
 typedef struct ZRIdentifierStrategyS ZRIdentifierStrategy;
@@ -44,18 +47,21 @@ struct ZRIdentifierS
 
 // ============================================================================
 
+#pragma zrlib generate function done
 ZRMUSTINLINE
 static inline void ZRIDENTIFIER_DONE(ZRIdentifier *identifier)
 {
 	identifier->strategy->fdone(identifier);
 }
 
+#pragma zrlib generate function destroy
 ZRMUSTINLINE
 static inline void ZRIDENTIFIER_DESTROY(ZRIdentifier *identifier)
 {
 	identifier->strategy->fdestroy(identifier);
 }
 
+#pragma zrlib generate function nbObj
 ZRMUSTINLINE
 static inline size_t ZRIDENTIFIER_NBOBJ(ZRIdentifier *identifier)
 {
@@ -66,6 +72,7 @@ static inline size_t ZRIDENTIFIER_NBOBJ(ZRIdentifier *identifier)
  * Return the Identifier of obj.
  * If it's not present, add a new one in the Identifier memory.
  */
+#pragma zrlib generate function getID
 ZRMUSTINLINE
 static inline ZRID ZRIDENTIFIER_GETID(ZRIdentifier *identifier, void *obj)
 {
@@ -76,42 +83,49 @@ static inline ZRID ZRIDENTIFIER_GETID(ZRIdentifier *identifier, void *obj)
  * Return the canonical representation of obj.
  * If it's not present, add a new one in the Identifier memory.
  */
+#pragma zrlib generate function intern
 ZRMUSTINLINE
 static inline void* ZRIDENTIFIER_INTERN(ZRIdentifier *identifier, void *obj)
 {
 	return identifier->strategy->fintern(identifier, obj);
 }
 
+#pragma zrlib generate function fromID
 ZRMUSTINLINE
 static inline void* ZRIDENTIFIER_FROMID(ZRIdentifier *identifier, ZRID id)
 {
 	return identifier->strategy->ffromID(identifier, id);
 }
 
+#pragma zrlib generate function objectP
 ZRMUSTINLINE
 static inline ZRObjectP ZRIDENTIFIER_OBJECTP(ZRIdentifier *identifier, ZRID id)
 {
 	return identifier->strategy->fobjectP(identifier, id);
 }
 
+#pragma zrlib generate function contains
 ZRMUSTINLINE
 static inline bool ZRIDENTIFIER_CONTAINS(ZRIdentifier *identifier, void *obj)
 {
 	return identifier->strategy->fcontains(identifier, obj);
 }
 
+#pragma zrlib generate function release
 ZRMUSTINLINE
 static inline bool ZRIDENTIFIER_RELEASE(ZRIdentifier *identifier, void *obj)
 {
 	return identifier->strategy->frelease(identifier, obj);
 }
 
+#pragma zrlib generate function releaseID
 ZRMUSTINLINE
 static inline bool ZRIDENTIFIER_RELEASEID(ZRIdentifier *identifier, ZRID id)
 {
 	return identifier->strategy->freleaseID(identifier, id);
 }
 
+#pragma zrlib generate function releaseAll
 ZRMUSTINLINE
 static inline bool ZRIDENTIFIER_RELEASEALL(ZRIdentifier *identifier)
 {
@@ -120,20 +134,8 @@ static inline bool ZRIDENTIFIER_RELEASEALL(ZRIdentifier *identifier)
 
 // ============================================================================
 
-void ZRIdentifier_done(__ ZRIdentifier *identifier);
-void ZRIdentifier_destroy(ZRIdentifier *identifier);
+#pragma zrlib write generate headers
 
-size_t ZRIdentifier_nbObj(ZRIdentifier *identifier);
 
-ZRID __ ZRIdentifier_getID(______ ZRIdentifier *identifier, void *obj);
-void* _ ZRIdentifier_intern(_____ ZRIdentifier *identifier, void *obj);
-void* _ ZRIdentifier_fromID(_____ ZRIdentifier *identifier, ZRID id);
-
-ZRObjectP ZRIdentifier_objectP(ZRIdentifier *identifier, ZRID id);
-
-bool __ ZRIdentifier_contains(___ ZRIdentifier *identifier, void *obj);
-bool __ ZRIdentifier_release(____ ZRIdentifier *identifier, void *obj);
-bool __ ZRIdentifier_releaseID(__ ZRIdentifier *identifier, ZRID id);
-bool __ ZRIdentifier_releaseAll(_ ZRIdentifier *identifier);
 
 #endif

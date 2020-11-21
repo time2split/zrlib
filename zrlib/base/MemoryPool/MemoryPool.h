@@ -14,6 +14,9 @@
 #include <stdint.h>
 #include <string.h>
 
+#pragma zrlib conf generate.target "/src/base/MemoryPool/MemoryPool.c" "."
+#pragma zrlib conf generate.prefix ZRMPool_
+
 // ============================================================================
 
 typedef struct ZRMemoryPoolS ZRMemoryPool;
@@ -32,9 +35,16 @@ struct ZRMemoryPoolS
 	ZRMemoryPoolStrategy *strategy;
 };
 
+#pragma zrlib generate function ZRObjInfos blockInfos(ZRMemoryPool *)
 #define ZRMPOOL_BLOCKINFOS(P) (P)->blockInfos
+
+#pragma zrlib generate function size_t blockSize(ZRMemoryPool *)
 #define ZRMPOOL_BLOCKSIZE(P) (P)->blockInfos.size
+
+#pragma zrlib generate function size_t blockAlignment(ZRMemoryPool *)
 #define ZRMPOOL_BLOCKALIGNMENT(P) (P)->blockInfos.alignment
+
+#pragma zrlib generate function size_t nbBlocks(ZRMemoryPool *)
 #define ZRMPOOL_NBBLOCKS(P) (P)->nbBlocks
 
 struct ZRMemoryPoolStrategyS
@@ -58,6 +68,7 @@ struct ZRMemoryPoolStrategyS
 
 // ============================================================================
 
+#pragma zrlib generate function init
 ZRMUSTINLINE
 static inline void ZRMPOOL_INIT(ZRMemoryPool *pool, ZRObjInfos blockInfos, ZRMemoryPoolStrategy *strategy)
 {
@@ -69,54 +80,63 @@ static inline void ZRMPOOL_INIT(ZRMemoryPool *pool, ZRObjInfos blockInfos, ZRMem
 	strategy->finit(pool);
 }
 
+#pragma zrlib generate function done
 ZRMUSTINLINE
 static inline void ZRMPOOL_DONE(ZRMemoryPool *pool)
 {
 	pool->strategy->fdone(pool);
 }
 
+#pragma zrlib generate function destroy
 ZRMUSTINLINE
 static inline void ZRMPOOL_DESTROY(ZRMemoryPool *pool)
 {
 	pool->strategy->fdestroy(pool);
 }
 
+#pragma zrlib generate function clean
 ZRMUSTINLINE
 static inline void ZRMPOOL_CLEAN(ZRMemoryPool *pool)
 {
 	pool->strategy->fclean(pool);
 }
 
+#pragma zrlib generate function areaNbBlocks
 ZRMUSTINLINE
 static inline size_t ZRMPOOL_AREANBBLOCKS(ZRMemoryPool *pool, void *firstBlock)
 {
 	return pool->strategy->fareaNbBlocks(pool, firstBlock);
 }
 
+#pragma zrlib generate function areaMetaData
 ZRMUSTINLINE
 static inline void* ZRMPOOL_AREAMETADATA(ZRMemoryPool *pool, void *firstBlock)
 {
 	return pool->strategy->fareaMetaData(pool, firstBlock);
 }
 
+#pragma zrlib generate function reserve
 ZRMUSTINLINE
 static inline void* ZRMPOOL_RESERVE(ZRMemoryPool *pool)
 {
 	return pool->strategy->freserve(pool, 1);
 }
 
+#pragma zrlib generate function reserve_nb
 ZRMUSTINLINE
 static inline void* ZRMPOOL_RESERVE_NB(ZRMemoryPool *pool, size_t nb)
 {
 	return pool->strategy->freserve(pool, nb);
 }
 
+#pragma zrlib generate function releaseArea
 ZRMUSTINLINE
 static inline void ZRMPOOL_RELEASEAREA(ZRMemoryPool *pool, void *block)
 {
 	pool->strategy->frelease(pool, block, SIZE_MAX);
 }
 
+#pragma zrlib generate function release_nb
 ZRMUSTINLINE
 static inline void* ZRMPOOL_RELEASE_NB(ZRMemoryPool *pool, void *firstBlock, size_t nb)
 {
@@ -125,23 +145,8 @@ static inline void* ZRMPOOL_RELEASE_NB(ZRMemoryPool *pool, void *firstBlock, siz
 
 // ============================================================================
 
-void ZRMPool_init(ZRMemoryPool *pool, ZRObjInfos blockInfos, ZRMemoryPoolStrategy *strategy);
-void ZRMPool_done(ZRMemoryPool *pool);
-void ZRMPool_destroy(ZRMemoryPool *pool);
-void ZRMPool_clean(ZRMemoryPool *pool);
+#pragma zrlib write generate headers
 
-size_t ZRMPool_nbBlocks(ZRMemoryPool *pool);
-size_t ZRMPool_areaNbBlocks(ZRMemoryPool *pool, void *firstBlock);
-void* ZRMPool_areaMetaData(ZRMemoryPool *pool, void *firstBlock);
 
-ZRObjInfos ZRMPool_blockInfos(ZRMemoryPool *pool);
-size_t ZRMPool_blockSize(ZRMemoryPool *pool);
-size_t ZRMPool_blockAlignment(ZRMemoryPool *pool);
-
-void* ZRMPool_reserve(__ ZRMemoryPool *pool);
-void* ZRMPool_reserve_nb(ZRMemoryPool *pool, size_t nb);
-
-void ZRMPool_release(ZRMemoryPool *pool, void *firstBlock);
-void* ZRMPool_release_nb(ZRMemoryPool *pool, void *firstBlock, size_t nb);
 
 #endif

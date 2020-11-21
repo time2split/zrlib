@@ -9,22 +9,23 @@
 #include <zrlib/lib/init.h>
 #include <zrlib/base/Allocator/Allocator.h>
 
+#pragma zrlib conf generate.target "/src/base/Identifier/IDGenerator/IDGenerator.c" "."
+#pragma zrlib conf generate.prefix ZRIdentifier_
+
 typedef struct
 {
 	size_t nbGenerated;
 }ZRIDGenerator;
 
-/* ========================================================================= */
 
-ZRMUSTINLINE
-static inline size_t ZRIDGENERATOR_NBGENERATED(ZRIDGenerator *generator)
-{
-	return generator->nbGenerated;
-}
+#pragma zrlib generate function size_t nbGenerated(ZRIDGenerator*)
+#define ZRIDGENERATOR_NBGENERATED(G) (G)->nbGenerated
 
 /* ========================================================================= */
 
-size_t ZRIDGenerator_nbGenerated(ZRIDGenerator *generator);
+#pragma zrlib write generate headers
+
+
 
 ZRID ZRIDGenerator_nextID(ZRIDGenerator *generator);
 ZRID ZRIDGenerator_generate(ZRIDGenerator *generator);

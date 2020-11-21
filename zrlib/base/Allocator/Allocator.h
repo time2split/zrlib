@@ -11,6 +11,9 @@
 
 #include <stddef.h>
 
+#pragma zrlib conf generate.target "/src/base/Allocator/Allocator.c" "."
+#pragma zrlib conf generate.prefix ZR
+
 // ============================================================================
 
 typedef struct ZRAllocatorS ZRAllocator;
@@ -25,36 +28,42 @@ struct ZRAllocatorS
 
 // ============================================================================
 
+#pragma zrlib generate function Alloc
 ZRMUSTINLINE
 static inline void* ZRALLOC(ZRAllocator *allocator, size_t nbBytes)
 {
 	return allocator->falloc(allocator, nbBytes);
 }
 
+#pragma zrlib generate function AAlloc
 ZRMUSTINLINE
 static inline void* ZRAALLOC(ZRAllocator *allocator, size_t alignment, size_t nbBytes)
 {
 	return allocator->faalloc(allocator, alignment, nbBytes);
 }
 
+#pragma zrlib generate function ObjAlloc_nb
 ZRMUSTINLINE
 static inline void* ZROBJALLOC_NB(ZRAllocator *allocator, ZRObjInfos objInfos, size_t nb)
 {
 	return allocator->faalloc(allocator, ZROBJINFOS_ALIGNMENT_SIZE(objInfos) * nb);
 }
 
+#pragma zrlib generate function ObjAlloc
 ZRMUSTINLINE
 static inline void* ZROBJALLOC(ZRAllocator *allocator, ZRObjInfos objInfos)
 {
 	return allocator->faalloc(allocator, ZROBJINFOS_ALIGNMENT_SIZE(objInfos));
 }
 
+#pragma zrlib generate function Realloc
 ZRMUSTINLINE
 static inline void* ZRREALLOC(ZRAllocator *allocator, void *allocated, size_t nbBytes)
 {
 	return allocator->frealloc(allocator, allocated, nbBytes);
 }
 
+#pragma zrlib generate function Free
 ZRMUSTINLINE
 static inline void ZRFREE(ZRAllocator *allocator, void *allocated)
 {
@@ -81,6 +90,7 @@ static inline void ZRFREE(ZRAllocator *allocator, void *allocated)
 /**
  * Same as ZRALLOC_VARIABLES but arguments are passed as an array of ZRObjetP where object pointed must be of void** type.
  */
+#pragma zrlib generate function Alloc_objects
 ZRMUSTINLINE
 static inline void ZRALLOC_OBJECTS(ZRAllocator *allocator, ZRObjectP *objects, size_t nb)
 {
@@ -103,5 +113,8 @@ static inline void ZRALLOC_OBJECTS(ZRAllocator *allocator, ZRObjectP *objects, s
 	ZRCARRAY_XXCPY(objects, infos, nb, SET);
 #undef SET
 }
+
+#pragma zrlib write generate headers
+
 
 #endif

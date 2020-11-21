@@ -11,6 +11,9 @@
 
 #include <stdlib.h>
 
+#pragma zrlib conf generate.target "/src/base/Table/Table.c" "."
+#pragma zrlib conf generate.prefix ZRTable_
+
 typedef struct ZRTableS ZRTable;
 typedef struct ZRTableStrategyS ZRTableStrategy;
 
@@ -44,12 +47,20 @@ struct ZRTableS
 };
 
 #define ZRTABLE(T) ((ZRTable*)(T))
+
+#pragma zrlib generate function size_t nbColumns(ZRTable*)
 #define ZRTABLE_NBCOLUMNS(T) (T)->nbColumns
+
+#pragma zrlib generate function size_t nbLines(ZRTable*)
 #define ZRTABLE_NBLINES(T) (T)->nbLines
+
+#pragma zrlib generate function size_t size(ZRTable*)
 #define ZRTABLE_SIZE(T) (ZRTABLE_NBCOLUMNS(T) * ZRTABLE_NBLINES(T))
 
 #define ZRTABLE_OBJINFOS(...) ZRCONCAT(ZRTABLE_OBJINFOS,ZRNARGS(__VA_ARGS__))(__VA_ARGS__)
 
+
+#pragma zrlib generate function objAInfos
 ZRMUSTINLINE
 static inline ZRObjAlignInfos ZRTABLE_OBJAINFOS(ZRTable *table, size_t column)
 {
@@ -57,12 +68,14 @@ static inline ZRObjAlignInfos ZRTABLE_OBJAINFOS(ZRTable *table, size_t column)
 	return table->ainfos[column];
 }
 
+#pragma zrlib generate function objInfos
 ZRMUSTINLINE
 static inline ZRObjInfos ZRTABLE_OBJINFOS1(ZRTable *table)
 {
 	return ZROBJALIGNINFOS_CPYOBJINFOS(table->ainfos[ZRTABLE_NBCOLUMNS(table)]);
 }
 
+#pragma zrlib generate function objInfos_column
 ZRMUSTINLINE
 static inline ZRObjInfos ZRTABLE_OBJINFOS2(ZRTable *table, size_t column)
 {
@@ -70,96 +83,112 @@ static inline ZRObjInfos ZRTABLE_OBJINFOS2(ZRTable *table, size_t column)
 	return ZROBJALIGNINFOS_CPYOBJINFOS(table->ainfos[column]);
 }
 
+#pragma zrlib generate function destroy
 ZRMUSTINLINE
 static inline void ZRTABLE_DESTROY(ZRTable *table)
 {
 	table->strategy->fdestroy(table);
 }
 
+#pragma zrlib generate function getObjects
 ZRMUSTINLINE
 static inline void* ZRTABLE_GETOBJECTS(ZRTable *table, size_t line, size_t nb)
 {
 	return table->strategy->fgetObjects(table, line, nb);
 }
 
+#pragma zrlib generate function getObjects_end
 ZRMUSTINLINE
 static inline void ZRTABLE_GETOBJECTS_END(ZRTable *table, void *objects)
 {
 	table->strategy->fgetObjects_end(table, objects);
 }
 
+#pragma zrlib generate function getColumn
 ZRMUSTINLINE
 static inline void* ZRTABLE_GETCOLUMN(ZRTable *table, size_t line, size_t column, size_t nb)
 {
 	return table->strategy->fgetColumn(table, line, column, nb);
 }
 
+#pragma zrlib generate function getColumn_end
 ZRMUSTINLINE
 static inline void ZRTABLE_GETCOLUMN_END(ZRTable *table, void *column)
 {
 	table->strategy->fgetColumn_end(table, column);
 }
 
+#pragma zrlib generate function delete_nb
 ZRMUSTINLINE
 static inline void ZRTABLE_DELETE_NB(ZRTable *table, size_t line, size_t nb)
 {
 	table->strategy->fdelete(table, line, nb);
 }
 
+#pragma zrlib generate function delete
 ZRMUSTINLINE
 static inline void ZRTABLE_DELETE(ZRTable *table, size_t line)
 {
 	table->strategy->fdelete(table, line, 1);
 }
 
+#pragma zrlib generate function delete_all
 ZRMUSTINLINE
 static inline void ZRTABLE_DELETE_ALL(ZRTable *table)
 {
 	table->strategy->fdelete(table, 0, ZRTABLE_NBLINES(table));
 }
 
+#pragma zrlib generate function reserve_nb
 ZRMUSTINLINE
 static inline void ZRTABLE_RESERVE_NB(ZRTable *table, size_t line, size_t nb)
 {
 	table->strategy->freserve(table, line, nb);
 }
 
+#pragma zrlib generate function reserve
 ZRMUSTINLINE
 static inline void ZRTABLE_RESERVE(ZRTable *table, size_t line)
 {
 	table->strategy->freserve(table, line, 1);
 }
 
+#pragma zrlib generate function get_column
 ZRMUSTINLINE
 static inline void* ZRTABLE_GET_COLUMN(ZRTable *table, size_t line, size_t column)
 {
 	return table->strategy->fget_column(table, line, column);
 }
 
+#pragma zrlib generate function cpy_column_nb
 ZRMUSTINLINE
 static inline void ZRTABLE_CPY_COLUMN_NB(ZRTable *table, size_t line, size_t column, size_t nb, void *dest)
 {
 	table->strategy->fcpy_column(table, line, column, nb, dest);
 }
 
+#pragma zrlib generate function cpy_column
 ZRMUSTINLINE
 static inline void ZRTABLE_CPY_COLUMN(ZRTable *table, size_t line, size_t column, void *dest)
 {
 	table->strategy->fcpy_column(table, line, column, 1, dest);
 }
 
+#pragma zrlib generate function set_column_nb
 ZRMUSTINLINE
 static inline void ZRTABLE_SET_COLUMN_NB(ZRTable *table, size_t line, size_t column, size_t nb, void *src)
 {
 	table->strategy->fset_column(table, line, column, nb, src);
 }
 
+#pragma zrlib generate function set_column
 ZRMUSTINLINE
 static inline void ZRTABLE_SET_COLUMN(ZRTable *table, size_t line, size_t column, void *src)
 {
 	table->strategy->fset_column(table, line, column, 1, src);
 }
 
+#pragma zrlib generate function cpy_oai_nb
 ZRMUSTINLINE
 static inline void ZRTABLE_CPY_OAI_NB(ZRTable *table, size_t line, ZRObjAlignInfos *destInfos, size_t nb, void *dest)
 {
@@ -168,24 +197,28 @@ static inline void ZRTABLE_CPY_OAI_NB(ZRTable *table, size_t line, ZRObjAlignInf
 	ZRTABLE_GETOBJECTS_END(table, objects);
 }
 
+#pragma zrlib generate function cpy_oai
 ZRMUSTINLINE
 static inline void ZRTABLE_CPY_OAI(ZRTable *table, size_t line, ZRObjAlignInfos *destInfos, void *dest)
 {
 	ZRTABLE_CPY_OAI_NB(table, line, destInfos, 1, dest);
 }
 
+#pragma zrlib generate function cpy_nb
 ZRMUSTINLINE
 static inline void ZRTABLE_CPY_NB(ZRTable *table, size_t line, size_t nb, void *dest)
 {
 	table->strategy->fcpy(table, line, nb, dest);
 }
 
+#pragma zrlib generate function cpy
 ZRMUSTINLINE
 static inline void ZRTABLE_CPY(ZRTable *table, size_t line, void *dest)
 {
 	table->strategy->fcpy(table, line, 1, dest);
 }
 
+#pragma zrlib generate function set_oai_nb
 ZRMUSTINLINE
 static inline void ZRTABLE_SET_OAI_NB(ZRTable *table, size_t line, ZRObjAlignInfos *srcInfos, size_t nb, void *src)
 {
@@ -195,18 +228,21 @@ static inline void ZRTABLE_SET_OAI_NB(ZRTable *table, size_t line, ZRObjAlignInf
 	table->strategy->fset(table, line, nb, objSrc);
 }
 
+#pragma zrlib generate function set_oai
 ZRMUSTINLINE
 static inline void ZRTABLE_SET_OAI(ZRTable *table, size_t line, ZRObjAlignInfos *srcInfos, void *src)
 {
 	ZRTABLE_SET_OAI_NB(table, line, srcInfos, 1, src);
 }
 
+#pragma zrlib generate function set_nb
 ZRMUSTINLINE
 static inline void ZRTABLE_SET_NB(ZRTable *table, size_t line, size_t nb, void *src)
 {
 	table->strategy->fset(table, line, nb, src);
 }
 
+#pragma zrlib generate function set
 ZRMUSTINLINE
 static inline void ZRTABLE_SET(ZRTable *table, size_t line, void *src)
 {
@@ -218,23 +254,9 @@ static inline void ZRTABLE_SET(ZRTable *table, size_t line, void *src)
 
 /* ========================================================================= */
 
-void* ZRTable_get_column(___ ZRTable *table, size_t line, size_t column);
-void ZRTable_cpy_column_nb(_ ZRTable *table, size_t line, size_t column, size_t nb, void *dest);
-void ZRTable_set_column_nb(_ ZRTable *table, size_t line, size_t column, size_t nb, void *src);
+#pragma zrlib write generate headers
 
-void ZRTable_cpy_oai_nb(_ ZRTable *table, size_t line, ZRObjAlignInfos *destInfos, size_t nb, void *dest);
-void ZRTable_set_oai_nb(_ ZRTable *table, size_t line, ZRObjAlignInfos *src_Infos, size_t nb, void *src);
-void ZRTable_cpy_nb(_____ ZRTable *table, size_t line, size_t nb, void *dest);
-void ZRTable_set_nb(_____ ZRTable *table, size_t line, size_t nb, void *src);
-void ZRTable_reserve_nb(_ ZRTable *table, size_t line, size_t nb);
-void ZRTable_delete_nb(__ ZRTable *table, size_t line, size_t nb);
-void ZRTable_delete(_____ ZRTable *table, size_t line);
-void ZRTable_delete_all(_ ZRTable *table);
 
-void* ZRTable_getObjects(ZRTable *table, size_t line, size_t nb);
-void ZRTable_getObjects_end(ZRTable *table, void *objects);
-void* ZRTable_getColumn(ZRTable *table, size_t line, size_t column, size_t nb);
-void ZRTable_getColumn_end(ZRTable *table, void *column);
-void ZRTable_destroy(ZRTable *table);
+
 
 #endif

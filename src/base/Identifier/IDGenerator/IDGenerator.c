@@ -31,10 +31,8 @@ static int cmpID(void *a, void *b, void *data)
 
 /* ========================================================================= */
 
-size_t ZRIDGenerator_nbGenerated(ZRIDGenerator *generator)
-{
-	return ZRIDGENERATOR_NBGENERATED(generator);
-}
+#pragma zrlib write generate functions
+
 
 ZRID ZRIDGenerator_nextID(ZRIDGenerator *generator_p)
 {
