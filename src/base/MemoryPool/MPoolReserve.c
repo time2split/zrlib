@@ -626,7 +626,6 @@ static void ZRMPoolReserveStrategy_init(ZRMPoolReserveStrategy *strategy, MPoolR
 		*strategy = (ZRMPoolReserveStrategy ) { //
 			.strategy = (ZRMemoryPoolStrategy ) { //
 				.finit = finitPool_bits, //
-				.fdone = fdone_bits, //
 				.fdestroy = infos->changefdestroy ? fdestroy_bits : fdone_bits,
 				.fclean = fclean_bits, //
 				.fareaNbBlocks = fareaNbBlocks_bits, //
@@ -640,7 +639,6 @@ static void ZRMPoolReserveStrategy_init(ZRMPoolReserveStrategy *strategy, MPoolR
 		*strategy = (ZRMPoolReserveStrategy ) { //
 			.strategy = (ZRMemoryPoolStrategy ) { //
 				.finit = finitPool_list, //
-				.fdone = fdone_list, //
 				.fdestroy = infos->changefdestroy ? fdestroy_list : fdone_list,
 				.fclean = fclean_list, //
 				.fareaNbBlocks = fareaNbBlocks_list, //
@@ -654,7 +652,6 @@ static void ZRMPoolReserveStrategy_init(ZRMPoolReserveStrategy *strategy, MPoolR
 		*strategy = (ZRMPoolReserveStrategy ) { //
 			.strategy = (ZRMemoryPoolStrategy ) { //
 				.finit = finitPool_chunk, //
-				.fdone = fdone_chunk, //
 				.fdestroy = infos->changefdestroy ? fdestroy_chunk : fdone_chunk,
 				.fclean = fclean_chunk, //
 				.fareaNbBlocks = fareaNbBlocks_chunk, //

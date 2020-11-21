@@ -280,7 +280,8 @@ void* frelease(ZRMemoryPool *pool, void *firstBlock, size_t nb)
  * Clean the memory used by the pool.
  * The pool MUST NOT be used after this call.
  */
-void fdone(ZRMemoryPool *pool)
+ZRMUSTINLINE
+static void inline fdone(ZRMemoryPool *pool)
 {
 	ZRMPoolDS *const dspool = ZRMPOOLDS(pool);
 	ZRMPOOL_STRATEGY(pool)->fdestroyBuckets(dspool->buckets);
@@ -317,7 +318,6 @@ void ZRMPoolDSStrategy_init(ZRMemoryPoolStrategy *strategy)
 	*(ZRMPoolDynamicStrategy*)strategy = (ZRMPoolDynamicStrategy ) { //
 		.strategy = (ZRMemoryPoolStrategy ) { //
 			.finit = finitPool, //
-			.fdone = fdone, //
 			.fclean = fclean, //
 			.fareaNbBlocks = fareaNbBlocks, //
 			.fareaMetaData = fuserAreaMetaData, //
@@ -333,7 +333,7 @@ void ZRMPoolDS_destroy(ZRMemoryPool *pool)
 {
 	ZRMPoolDS *const dspool = ZRMPOOLDS(pool);
 	ZRAllocator *allocator = dspool->allocator;
-	ZRMPOOL_DONE(pool);
+	fdone(pool);
 	ZRFREE(allocator, pool);
 }
 

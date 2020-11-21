@@ -50,7 +50,6 @@ struct ZRMemoryPoolS
 struct ZRMemoryPoolStrategyS
 {
 	void (*finit)(ZRMemoryPool *pool);
-	void (*fdone)(ZRMemoryPool *pool);
 	void (*fdestroy)(ZRMemoryPool *pool);
 	void (*fclean)(ZRMemoryPool *pool);
 
@@ -78,13 +77,6 @@ static inline void ZRMPOOL_INIT(ZRMemoryPool *pool, ZRObjInfos blockInfos, ZRMem
 		.strategy = strategy,
 	};
 	strategy->finit(pool);
-}
-
-#pragma zrlib generate function done
-ZRMUSTINLINE
-static inline void ZRMPOOL_DONE(ZRMemoryPool *pool)
-{
-	pool->strategy->fdone(pool);
 }
 
 #pragma zrlib generate function destroy
@@ -146,7 +138,5 @@ static inline void* ZRMPOOL_RELEASE_NB(ZRMemoryPool *pool, void *firstBlock, siz
 // ============================================================================
 
 #pragma zrlib write generate headers
-
-
 
 #endif
