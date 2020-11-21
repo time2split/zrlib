@@ -27,11 +27,6 @@ typedef struct ZRVectorStrategyS ZRVectorStrategy;
 
 struct ZRVectorStrategyS
 {
-	/**
-	 * (optional)
-	 */
-	void (*finitVec)(ZRVector *vec);
-
 	/*
 	 * The insert/delete functions are responsible to update properly the vec.nbObj value.
 	 */
@@ -41,9 +36,6 @@ struct ZRVectorStrategyS
 	void (*fchangeObjSize)(ZRVector *vec, ZRObjInfos objInfos);
 	void (*fmemoryTrim)(ZRVector *vec);
 
-	/**
-	 * @optional
-	 */
 	void (*fdestroy)(ZRVector *vec);
 };
 
@@ -97,27 +89,6 @@ static inline void ZRVECTOR_FDELETE(ZRVector *vec, size_t pos, size_t nb)
 }
 
 // ============================================================================
-
-#pragma zrlib generate function init
-ZRMUSTINLINE
-static inline void ZRVECTOR_INIT(ZRVector *vec, ZRObjInfos objInfos, ZRVectorStrategy *strategy)
-{
-	*vec = ((ZRVector)
-		{
-			.array = (ZRArray)
-			{
-				.objInfos = objInfos,
-			},
-			.strategy = strategy,
-		})
-	;
-
-	/*
-	 * Initialisation of the vector
-	 */
-	if (strategy->finitVec)
-		strategy->finitVec(vec);
-}
 
 #pragma zrlib generate function copy
 ZRMUSTINLINE
