@@ -42,12 +42,6 @@ struct ZRVectorStrategyS
 	void (*fmemoryTrim)(ZRVector *vec);
 
 	/**
-	 * Clean the memory used by the vector.
-	 * The vector MUST NOT be used after this call.
-	 */
-	void (*fdone)(ZRVector *vec);
-
-	/**
 	 * @optional
 	 */
 	void (*fdestroy)(ZRVector *vec);
@@ -137,19 +131,11 @@ static inline void ZRVECTOR_COPY(ZRVector *restrict dest, ZRVector *restrict src
 	ZRVECTOR_ADD_NB(dest, src->array.nbObj, src->array.array);
 }
 
-#pragma zrlib generate function done
-ZRMUSTINLINE
-static inline void ZRVECTOR_DONE(ZRVector *vec)
-{
-	vec->strategy->fdone(vec);
-}
-
 #pragma zrlib generate function destroy
 ZRMUSTINLINE
 static inline void ZRVECTOR_DESTROY(ZRVector *vec)
 {
-	if (vec->strategy->fdestroy != NULL)
-		vec->strategy->fdestroy(vec);
+	vec->strategy->fdestroy(vec);
 }
 
 #pragma zrlib generate function get

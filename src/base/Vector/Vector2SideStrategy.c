@@ -675,7 +675,7 @@ static void fdone(ZRVector *vec)
 static void fdestroy(ZRVector *vec)
 {
 	ZRAllocator *const allocator = ZRVECTOR_2SS(vec)->allocator;
-	ZRVECTOR_DONE(vec);
+	fdone(vec);
 	ZRFREE(allocator, vec);
 }
 
@@ -788,7 +788,6 @@ static void ZRVector2SideStrategy_initStrategy_oneSide(ZRVector2SideStrategy *st
 			.fdelete = infos->fixed ? fdelete_oneSide : fdeleteShrink_oneSide,
 			.fchangeObjSize = fchangeObjSize_oneSide,
 			.fmemoryTrim = fmemoryTrim,
-			.fdone = fdone,
 			.fdestroy = infos->changefdestroy ? fdestroy : fdone,
 			},
 		};
@@ -803,7 +802,6 @@ static void ZRVector2SideStrategy_initStrategy(ZRVector2SideStrategy *strategy, 
 			.fdelete = infos->fixed ? fdelete : fdeleteShrink,
 			.fchangeObjSize = fchangeObjSize,
 			.fmemoryTrim = fmemoryTrim,
-			.fdone = fdone,
 			.fdestroy = infos->changefdestroy ? fdestroy : fdone,
 			},
 		};
