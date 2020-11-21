@@ -96,7 +96,8 @@ static inline void ZRVECTOR_COPY(ZRVector *restrict dest, ZRVector *restrict src
 {
 	assert(dest->array.objInfos.alignment == src->array.objInfos.alignment);
 	ZRVECTOR_DELETE_ALL(dest);
-// TODO: function changeSize()
+	ZRVECTOR_CHANGEOBJSIZE(dest, ZRVECTOR_OBJINFOS(src));
+
 	dest->array.objInfos.size = src->array.objInfos.size;
 	dest->array.nbObj = 0;
 	ZRVECTOR_ADD_NB(dest, src->array.nbObj, src->array.array);
