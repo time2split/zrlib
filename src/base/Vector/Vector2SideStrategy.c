@@ -355,7 +355,7 @@ static inline void moreSize_oneSide(ZRVector *vec, size_t nbObjMore)
  * vec must be initialized to zero before.
  */
 ZRMUSTINLINE
-static inline void finitVec_oneSide(ZRVector *vec)
+static inline void initVec_oneSide(ZRVector *vec)
 {
 	ZR2SSVector *svector = ZRVECTOR_2SS(vec);
 
@@ -386,7 +386,7 @@ static void fchangeObjSize_oneSide(ZRVector *vector, ZRObjInfos objInfos)
  * vec must be initialized to zero before.
  */
 ZRMUSTINLINE
-static inline void finitVec(ZRVector *vec)
+static inline void initVec(ZRVector *vec)
 {
 	ZR2SSVector *svector = ZRVECTOR_2SS(vec);
 
@@ -852,6 +852,7 @@ void ZRVector2SideStrategy_init(ZRVector *vector, void *infos_p)
 		.staticStrategy = initInfos->staticStrategy,
 
 		.resizeData = (ZRResizeData ) { /**/
+			.upLimit = infos[ZRVectorInfos_objs].size,
 			.initialNb = getInitialMemoryNbObjs(initInfos->initialMemoryNbObj, initInfos->initialArrayNbObj, initInfos->objInfos.size),
 			.growStrategy = (ZRResizeGrowStrategy ) { ZRResizeOp_limit_100, ZRResizeOp_increase_100 },
 			.shrinkStrategy = (ZRResizeShrinkStrategy ) { ZRResizeOp_limit_90, ZRResizeOp_limit_50 } ,
@@ -859,9 +860,9 @@ void ZRVector2SideStrategy_init(ZRVector *vector, void *infos_p)
 		};
 
 	if (initInfos->oneSide)
-		finitVec_oneSide(ZR2SS_VECTOR(ssvector));
+		initVec_oneSide(ZR2SS_VECTOR(ssvector));
 	else
-		finitVec(ZR2SS_VECTOR(ssvector));
+		initVec(ZR2SS_VECTOR(ssvector));
 }
 
 ZRVector* ZRVector2SideStrategy_new(void *infos_p)
