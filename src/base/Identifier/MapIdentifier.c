@@ -48,7 +48,7 @@ typedef enum
 	MAPIDENTIFIERINFOS_NB,
 } MapIdentifierInfos;
 
-// ============================================================================
+/* ========================================================================= */
 
 typedef struct
 {
@@ -58,7 +58,7 @@ typedef struct
 
 #define MAPBUCKET(B) ((MapBucket*)(B))
 
-// ============================================================================
+/* ========================================================================= */
 
 ZRMUSTINLINE
 static inline MapBucket* getBucket(MapIdentifier *mapIdentifier, void *obj,
@@ -171,7 +171,7 @@ static inline void destroy(ZRIdentifier *identifier, void (*fdone)(ZRIdentifier*
 	ZRFREE(mapIdentifier->allocator, mapIdentifier);
 }
 
-// ============================================================================
+/* ========================================================================= */
 
 static void allocObject(MapIdentifier *mapIdentifier, void *objInPool_p)
 {
@@ -281,7 +281,7 @@ void fdestroy_unknown(ZRIdentifier *identifier)
 	destroy(identifier, fdone_unknown);
 }
 
-// ============================================================================
+/* ========================================================================= */
 
 ZRMUSTINLINE
 static inline MapBucket* _getBucket(MapIdentifier *mapIdentifier, void *obj)
@@ -364,7 +364,7 @@ void fdestroy(ZRIdentifier *identifier)
 	destroy(identifier, fdone);
 }
 
-// ============================================================================
+/* ========================================================================= */
 
 typedef struct
 {
@@ -412,7 +412,7 @@ void ZRMapIdentifierIInfos(void *infos_out, ZRObjInfos objInfos, zrfuhash *fuhas
 {
 	MapIdentifierInitInfos *initInfos = (MapIdentifierInitInfos*)infos_out;
 
-	*initInfos = (MapIdentifierInitInfos ) { //
+	*initInfos = (MapIdentifierInitInfos ) { /* */
 		.objInfos = objInfos,
 		.allocator = NULL,
 		.fuhash = fuhash,
@@ -447,9 +447,9 @@ void ZRMapIdentifierStrategy_init(MapIdentifierStrategy *strategy, MapIdentifier
 {
 	if (ZROBJINFOS_ISUNKNOWN(infos->objInfos))
 		*strategy = (MapIdentifierStrategy )
-			{ //
+			{ /* */
 			.identifier = (ZRIdentifierStrategy )
-				{ //
+				{ /* */
 				.fgetID = fgetID_unknown,
 				.fintern = fintern_unknown,
 				.ffromID = ffromID_unknown,
@@ -460,15 +460,14 @@ void ZRMapIdentifierStrategy_init(MapIdentifierStrategy *strategy, MapIdentifier
 				.freleaseID = freleaseID_unknown,
 				.freleaseAll = freleaseAll_unknown,
 
-				.fdone = fdone_unknown,
 				.fdestroy = fdone_unknown,
 				} ,
 			};
 	else
 		*strategy = (MapIdentifierStrategy )
-			{ //
+			{ /* */
 			.identifier = (ZRIdentifierStrategy )
-				{ //
+				{ /* */
 				.fgetID = fgetID,
 				.fintern = fintern,
 				.ffromID = ffromID,
@@ -479,7 +478,6 @@ void ZRMapIdentifierStrategy_init(MapIdentifierStrategy *strategy, MapIdentifier
 				.freleaseID = freleaseID,
 				.freleaseAll = freleaseAll,
 
-				.fdone = fdone,
 				.fdestroy = fdone,
 				} ,
 			};
@@ -562,8 +560,8 @@ void ZRMapIdentifier_init(ZRIdentifier *identifier, void *infos)
 	ZRIDGenerator_init(generator, initInfos->generatorInfos);
 
 	ZRMapIdentifierStrategy_init(strategy, initInfos);
-	*mapIdentifier = (MapIdentifier ) { //
-		.identifier = (ZRIdentifier ) { //
+	*mapIdentifier = (MapIdentifier ) { /* */
+		.identifier = (ZRIdentifier ) { /* */
 			.strategy = (ZRIdentifierStrategy*)strategy,
 			},
 		.generator = generator,

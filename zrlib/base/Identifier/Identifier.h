@@ -14,12 +14,12 @@
 #pragma zrlib conf generate.target "/src/base/Identifier/Identifier.c" "."
 #pragma zrlib conf generate.prefix ZRIdentifier_
 
-// ============================================================================
+/* ========================================================================= */
 
 typedef struct ZRIdentifierStrategyS ZRIdentifierStrategy;
 typedef struct ZRIdentifierS ZRIdentifier;
 
-// ============================================================================
+/* ========================================================================= */
 
 struct ZRIdentifierStrategyS
 {
@@ -34,7 +34,6 @@ struct ZRIdentifierStrategyS
 	bool (*freleaseID)(ZRIdentifier *identifier, ZRID id);
 	bool (*freleaseAll)(ZRIdentifier *identifier);
 
-	void (*fdone)(ZRIdentifier *identifier);
 	void (*fdestroy)(ZRIdentifier *identifier);
 };
 
@@ -45,14 +44,7 @@ struct ZRIdentifierS
 	size_t nbObj;
 };
 
-// ============================================================================
-
-#pragma zrlib generate function done
-ZRMUSTINLINE
-static inline void ZRIDENTIFIER_DONE(ZRIdentifier *identifier)
-{
-	identifier->strategy->fdone(identifier);
-}
+/* ========================================================================= */
 
 #pragma zrlib generate function destroy
 ZRMUSTINLINE
@@ -132,10 +124,8 @@ static inline bool ZRIDENTIFIER_RELEASEALL(ZRIdentifier *identifier)
 	return identifier->strategy->freleaseAll(identifier);
 }
 
-// ============================================================================
+/* ========================================================================= */
 
 #pragma zrlib write generate headers
-
-
 
 #endif
