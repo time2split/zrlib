@@ -21,7 +21,7 @@ struct ZRVectorMapStrategyS
 	ZRMapStrategy strategy;
 };
 
-// ============================================================================
+/* ========================================================================= */
 
 #define ZRVMAP_MAP(VMAP) (&(VMAP)->map)
 #define ZRVMAP(VMAP) ((ZRVectorMap*)(VMAP))
@@ -60,7 +60,7 @@ enum InsertModeE
 	PUT, REPLACE, PUTIFABSENT
 };
 
-// ============================================================================
+/* ========================================================================= */
 
 #define bucket_get(VMAP,BUCKET,FIELD) ((char*)BUCKET + (VMAP)->bucketInfos[FIELD].offset)
 #define bucket_key(VMAP,BUCKET) bucket_get(VMAP,BUCKET,BucketInfos_key)
@@ -84,11 +84,7 @@ static void bucketInfos_make(ZRObjAlignInfos *out, ZRObjInfos objInfos, ZRObjInf
 	ZRStruct_bestOffsets(BUCKETINFOS_NB - 1, out);
 }
 
-// ============================================================================
-
-static void finitMap(ZRMap *map)
-{
-}
+/* ========================================================================= */
 
 static void fdone(ZRMap *map)
 {
@@ -104,8 +100,8 @@ static int bucketCmp(void *a, void *b, void *vmap_p)
 	return vmap->fucmp(a, bucket_key(vmap, b), vmap);
 }
 
-// ============================================================================
-// ORDER
+/* ========================================================================= */
+/* ORDER */
 
 static inline size_t getBucketPos(ZRVectorMap *vmap, void *key)
 {
@@ -134,7 +130,7 @@ static inline bool insert(ZRMap *map, void *key, void *obj, enum InsertModeE mod
 	size_t const pos = ZRARRAYOP_BINSERT_POS_LAST(ZRARRAY_OON(vmap->vector->array), key, bucketCmp, vmap);
 	void *bucket;
 
-// Check if the bucket is at pos
+	/* Check if the bucket is at pos */
 	if (pos == 0)
 		bucket = NULL;
 	else
@@ -145,7 +141,7 @@ static inline bool insert(ZRMap *map, void *key, void *obj, enum InsertModeE mod
 			bucket = NULL;
 	}
 
-// No bucket found
+	/* No bucket found */
 	if (bucket == NULL)
 	{
 		if (mode == REPLACE)
@@ -210,8 +206,8 @@ static bool fdelete(ZRMap *map, void *key, void *cpy_out)
 	return true;
 }
 
-// ============================================================================
-// EQ
+/* ========================================================================= */
+/* EQ */
 
 static inline size_t eq_getBucketPos(ZRVectorMap *vmap, void *key)
 {
@@ -234,7 +230,7 @@ static inline bool eq_insert(ZRMap *map, void *key, void *obj, enum InsertModeE 
 	size_t const pos = ZRARRAYOP_SEARCH_POS(ZRARRAY_OON(vmap->vector->array), key, bucketCmp, vmap);
 	void *bucket;
 
-// No bucket found
+	/* No bucket found */
 	if (pos == SIZE_MAX)
 	{
 		if (mode == REPLACE)
@@ -304,7 +300,7 @@ static bool eq_fdelete(ZRMap *map, void *key, void *cpy_out)
 	return true;
 }
 
-// ============================================================================
+/* ========================================================================= */
 
 static size_t fcpyKeyValPtr(ZRMap *map, ZRMapKeyVal *cpyTo, size_t offset, size_t maxNbCpy)
 {
@@ -347,7 +343,7 @@ static void fdestroy(ZRMap *map)
 	ZRFREE(allocator, map);
 }
 
-// ============================================================================
+/* ========================================================================= */
 
 static int default_cmp(void *a, void *b, void *map_p)
 {
@@ -392,7 +388,6 @@ static void ZRVectorMapStrategy_init(ZRVectorMapStrategy *strategy, VectorMapIni
 			{
 				.strategy =
 					{
-						.finitMap = finitMap,
 						.fput = fput,
 						.fputIfAbsent = fputIfAbsent,
 						.freplace = freplace,
@@ -408,7 +403,6 @@ static void ZRVectorMapStrategy_init(ZRVectorMapStrategy *strategy, VectorMapIni
 			{
 				.strategy =
 					{
-						.finitMap = finitMap,
 						.fput = eq_fput,
 						.fputIfAbsent = eq_fputIfAbsent,
 						.freplace = eq_freplace,
@@ -448,7 +442,7 @@ ZRObjInfos ZRVectorMap_itemObjInfos(void *infos_p)
 void ZRVectorMapIInfos(void *infos_out, ZRObjInfos keyInfos, ZRObjInfos objInfos)
 {
 	VectorMapInitInfos *infos = (VectorMapInitInfos*)infos_out;
-	*infos = (VectorMapInitInfos ) { //
+	*infos = (VectorMapInitInfos ) { /* */
 		.keyInfos = keyInfos,
 		.objInfos = objInfos,
 
@@ -572,14 +566,19 @@ void ZRVectorMap_init(ZRMap *map, void *infos_p)
 	else
 		allocator = infos->allocator;
 
-	*vmap = (ZRVectorMap ) { //
+	*vmap = (ZRVectorMap ) { /* */
+		.map = (ZRMap ) { /**/
+			.keyInfos = infos->keyInfos,
+			.objInfos = infos->objInfos,
+			.nbObj = 0,
+			.strategy = &strategy->strategy,
+			},
 		.vector = vector,
 		.allocator = allocator,
 		.fucmp = infos->fucmp,
 		.destroyVector = destroyVector,
 		};
 	ZRCARRAY_CPY(vmap->bucketInfos, bucketInfos);
-	ZRMAP_INIT(ZRVMAP_MAP(vmap), infos->keyInfos, infos->objInfos, (ZRMapStrategy*)strategy);
 }
 
 ZRMap* ZRVectorMap_new(void *infos_p)

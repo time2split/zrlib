@@ -723,7 +723,6 @@ static void ZRHashTableStrategy_init(ZRHashTableStrategy *strategy, ZRHashTableI
 {
 	*strategy = (ZRHashTableStrategy ) { /* */
 		.map = { /* */
-		.finitMap = finitMap, /* */
 		.fput = fputGrow, /* */
 		.fputIfAbsent = fputIfAbsentGrow, /* */
 		.freplace = freplaceGrow, /* */
@@ -774,7 +773,25 @@ void ZRHashTable_init(ZRMap *map, void *initInfos_p)
 	else
 		allocator = initInfos->allocator;
 
+	ZRHashTableStrategy ref;
+	zrlib_initPType(&ref);
+	ZRHashTableStrategy_init(&ref, initInfos);
+
+	if (initInfos->staticStrategy)
+	{
+		strategy = ZRARRAYOP_GET(htable, 1, initInfos->infos[ZRHashTableStructInfos_strategy].offset);
+		ZRPTYPE_CPY(strategy, &ref);
+	}
+	else
+		strategy = zrlib_internPType(&ref);
+
 	*htable = (ZRHashTable ) { /* */
+		.map = (ZRMap ) { /**/
+			.keyInfos = ZROBJALIGNINFOS_CPYOBJINFOS(initInfos->bucketInfos[ZRHashTableBucketInfos_key]),
+			.objInfos = ZROBJALIGNINFOS_CPYOBJINFOS(initInfos->bucketInfos[ZRHashTableBucketInfos_obj]),
+			.nbObj = 0,
+			.strategy = strategy,
+			},
 		.fhashPos = initInfos->dereferenceKey ? ptr_hashPos : hashPos,
 		.fcmp = initInfos->dereferenceKey ? ptr_cmp : cmp,
 		.fuhash = (zrfuhash*)((char*)htable + initInfos->infos[ZRHashTableStructInfos_fhash].offset),
@@ -799,24 +816,9 @@ void ZRHashTable_init(ZRMap *map, void *initInfos_p)
 	/* There must be a guard */
 	htable->fuhash[initInfos->nbfhash] = NULL;
 
-	ZRHashTableStrategy ref;
-	zrlib_initPType(&ref);
-	ZRHashTableStrategy_init(&ref, initInfos);
-
-	if (initInfos->staticStrategy)
-	{
-		strategy = ZRARRAYOP_GET(htable, 1, initInfos->infos[ZRHashTableStructInfos_strategy].offset);
-		ZRPTYPE_CPY(strategy, &ref);
-	}
-	else
-		strategy = zrlib_internPType(&ref);
-
 	free(initInfos->tableInitInfos);
 	initInfos->tableInitInfos = NULL;
-	ZRMAP_INIT(ZRHASHTABLE_MAP(htable),
-		ZROBJALIGNINFOS_CPYOBJINFOS(initInfos->bucketInfos[ZRHashTableBucketInfos_key]),
-		ZROBJALIGNINFOS_CPYOBJINFOS(initInfos->bucketInfos[ZRHashTableBucketInfos_obj]),
-		strategy);
+	finitMap(ZRHASHTABLE_MAP(htable));
 }
 
 ZRMap* ZRHashTable_create(

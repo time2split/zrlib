@@ -31,11 +31,6 @@ typedef struct ZRMapKeyValS
 
 struct ZRMapStrategyS
 {
-	/**
-	 * (optional)
-	 */
-	void (*finitMap)(ZRMap *map);
-
 	/*
 	 * The insert/delete functions are responsible to update properly the map.nbObj value.
 	 *
@@ -74,23 +69,6 @@ struct ZRMapS
 #define ZRMAP(M) ((ZRMap*)(M))
 
 /* ========================================================================= */
-
-#pragma zrlib generate function init
-ZRMUSTINLINE
-static inline void ZRMAP_INIT(ZRMap *map, ZRObjInfos key, ZRObjInfos obj, ZRMapStrategy *strategy)
-{
-	ZRMap cpy = { /**/
-		.keyInfos = key,
-		.objInfos = obj,
-		.nbObj = 0,
-		.strategy = strategy,
-	}
-	;
-	*map = cpy;
-
-	if (strategy->finitMap)
-		strategy->finitMap(map);
-}
 
 #pragma zrlib generate function destroy
 ZRMUSTINLINE
