@@ -17,7 +17,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-// ============================================================================
+/* ========================================================================= */
 
 typedef struct ZRMPoolReserveStrategyS ZRMPoolReserveStrategy;
 
@@ -50,9 +50,8 @@ typedef enum
 	ZRMPoolRInfos_struct,
 } ZRMPoolRInfos;
 
-// ============================================================================
-// AREA HEAD
-
+/* ========================================================================= */
+/* AREA HEAD */
 #define ZRAREA_GUARD_P ((void*)0xDEAD)
 #define ZRAREA_HEAD_GUARD_SIZE sizeof(void*)
 #define ZRAREA_HEAD_SIZE(infos) (infos->areaHeadSize)
@@ -135,7 +134,7 @@ static inline void ZRAreaHead_checkAndGet(ZRMemoryPool *pool, ZRMPoolCommonInfos
 	}
 }
 
-// ============================================================================
+/* ========================================================================= */
 
 ZRMUSTINLINE
 static inline void* fuserAreaMetaData(ZRMemoryPool *pool, ZRMPoolCommonInfos *infos, void *firstBlock)
@@ -171,7 +170,7 @@ static inline void* frelease(ZRMemoryPool *pool, ZRMPoolCommonInfos *infos, void
 	assert(nb > 0);
 	ZRAreaHead areaHead;
 
-//	assert(nb <= rlpool->nbBlocks);
+	/*	assert(nb <= rlpool->nbBlocks); */
 
 	ZRAreaHead_checkAndGet(pool, infos, firstBlock, &areaHead);
 
@@ -186,16 +185,16 @@ static inline void* frelease(ZRMemoryPool *pool, ZRMPoolCommonInfos *infos, void
 	char *area = firstBlock - (infos->nbBlocksForAreaHead * ZRMPOOL_BLOCKSIZE(pool));
 	*areaPos = (size_t)(area - infos->reserve) / ZRMPOOL_BLOCKSIZE(pool);
 
-// Delete the guard value
+	/* Delete the guard value */
 	memset((char*)firstBlock - sizeof(void*), 0, sizeof(void*));
 
-// Remove the entire area
+	/* Remove the entire area */
 	if (areaHead.nbBlocks == nb)
 	{
 		infos->nbArea--;
 		newFirstBlock = NULL;
 	}
-	// Remove the beginning of the area
+	/* Remove the beginning of the area */
 	else
 	{
 		nb -= infos->nbBlocksForAreaHead;
@@ -232,9 +231,8 @@ static inline void fdestroy(ZRMemoryPool *pool, ZRMPoolCommonInfos *infos)
 	ZRFREE(allocator, pool);
 }
 
-// ============================================================================
-// CHUNK
-
+/* ========================================================================= */
+/* CHUNK */
 typedef struct ZRMPoolRChunkS ZRMPoolRChunk;
 
 typedef enum
@@ -357,9 +355,8 @@ static void fdestroy_chunk(ZRMemoryPool *pool)
 	fdestroy(pool, &rcpool->infos);
 }
 
-// ============================================================================
-// LIST
-
+/* ========================================================================= */
+/* LIST */
 typedef struct ZRMPoolRListS ZRMPoolRList;
 
 typedef enum
@@ -473,8 +470,8 @@ static void fdestroy_list(ZRMemoryPool *pool)
 	fdestroy(pool, &rlpool->infos);
 }
 
-// ============================================================================
-// BITS
+/* ========================================================================= */
+/* BITS */
 typedef struct ZRMPoolRBitsS ZRMPoolRBits;
 
 typedef enum
@@ -589,7 +586,7 @@ static void fdestroy_bits(ZRMemoryPool *pool)
 	fdestroy(pool, &rbpool->infos);
 }
 
-// ============================================================================
+/* ========================================================================= */
 
 typedef struct
 {
@@ -623,48 +620,45 @@ static void ZRMPoolReserveStrategy_init(ZRMPoolReserveStrategy *strategy, MPoolR
 	switch (infos->mode)
 	{
 	case ZRMPoolReserveMode_bits:
-		*strategy = (ZRMPoolReserveStrategy ) { //
-			.strategy = (ZRMemoryPoolStrategy ) { //
-				.finit = finitPool_bits, //
+		*strategy = (ZRMPoolReserveStrategy ) { /* */
+			.strategy = (ZRMemoryPoolStrategy ) { /* */
 				.fdestroy = infos->changefdestroy ? fdestroy_bits : fdone_bits,
-				.fclean = fclean_bits, //
-				.fareaNbBlocks = fareaNbBlocks_bits, //
-				.fareaMetaData = fuserAreaMetaData_bits, //
-				.freserve = freserve_bits, //
-				.frelease = frelease_bits, //
-				} , //
+				.fclean = fclean_bits, /* */
+				.fareaNbBlocks = fareaNbBlocks_bits, /* */
+				.fareaMetaData = fuserAreaMetaData_bits, /* */
+				.freserve = freserve_bits, /* */
+				.frelease = frelease_bits, /* */
+				} , /* */
 			};
 		break;
 	case ZRMPoolReserveMode_list:
-		*strategy = (ZRMPoolReserveStrategy ) { //
-			.strategy = (ZRMemoryPoolStrategy ) { //
-				.finit = finitPool_list, //
+		*strategy = (ZRMPoolReserveStrategy ) { /* */
+			.strategy = (ZRMemoryPoolStrategy ) { /* */
 				.fdestroy = infos->changefdestroy ? fdestroy_list : fdone_list,
-				.fclean = fclean_list, //
-				.fareaNbBlocks = fareaNbBlocks_list, //
-				.fareaMetaData = fuserAreaMetaData_list, //
-				.freserve = freserve_list, //
-				.frelease = frelease_list, //
-				} , //
+				.fclean = fclean_list, /* */
+				.fareaNbBlocks = fareaNbBlocks_list, /* */
+				.fareaMetaData = fuserAreaMetaData_list, /* */
+				.freserve = freserve_list, /* */
+				.frelease = frelease_list, /* */
+				} , /* */
 			};
 		break;
 	case ZRMPoolReserveMode_chunk:
-		*strategy = (ZRMPoolReserveStrategy ) { //
-			.strategy = (ZRMemoryPoolStrategy ) { //
-				.finit = finitPool_chunk, //
+		*strategy = (ZRMPoolReserveStrategy ) { /* */
+			.strategy = (ZRMemoryPoolStrategy ) { /* */
 				.fdestroy = infos->changefdestroy ? fdestroy_chunk : fdone_chunk,
-				.fclean = fclean_chunk, //
-				.fareaNbBlocks = fareaNbBlocks_chunk, //
-				.fareaMetaData = fuserAreaMetaData_chunk, //
-				.freserve = freserve_chunk, //
-				.frelease = frelease_chunk, //
-				} , //
+				.fclean = fclean_chunk, /* */
+				.fareaNbBlocks = fareaNbBlocks_chunk, /* */
+				.fareaMetaData = fuserAreaMetaData_chunk, /* */
+				.freserve = freserve_chunk, /* */
+				.frelease = frelease_chunk, /* */
+				} , /* */
 			};
 		break;
 	}
 }
 
-// ============================================================================
+/* ========================================================================= */
 
 ZRObjInfos ZRMPoolReserveIInfosObjInfos(void)
 {
@@ -681,7 +675,7 @@ static inline void ZRMPoolReserveIInfos_validate(MPoolReserveInitInfos *infos)
 	size_t const headSize = infos->areaHeadInfos[ZRAreaHeadInfos_struct].size + ZRAREA_HEAD_GUARD_SIZE;
 	size_t const nbBlocksForAreaHead = headSize / blockSize + (headSize % blockSize ? 1 : 0);
 
-	// TODO: better strategy for area head ?
+	/* TODO: better strategy for area head ? */
 	size_t const nbAreaInSpace = infos->nbBlocks;
 
 	infos->nbBlocks_real = infos->nbBlocks + nbBlocksForAreaHead * nbAreaInSpace;
@@ -712,7 +706,7 @@ static ZRObjAlignInfos NULLOBJ;
 void ZRMPoolReserveIInfos(void *infos, ZRObjInfos blockInfos, size_t nbBlocks)
 {
 	MPoolReserveInitInfos *initInfos = (MPoolReserveInitInfos*)infos;
-	*initInfos = (MPoolReserveInitInfos ) { //
+	*initInfos = (MPoolReserveInitInfos ) { /* */
 		.mode = ZRMPoolReserveMode_default,
 		.blockInfos = blockInfos,
 		.nbBlocks = nbBlocks,
@@ -762,6 +756,7 @@ ZRObjInfos ZRMPoolReserve_objInfos(void *infos)
 void ZRMPoolReserve_init(ZRMemoryPool *pool, void *infos_p)
 {
 	MPoolReserveInitInfos *initInfos = (MPoolReserveInitInfos*)infos_p;
+	void (*finit)(ZRMemoryPool *pool);
 	ZRMPoolCommonInfos *pinfos;
 	void *reserve;
 
@@ -776,6 +771,7 @@ void ZRMPoolReserve_init(ZRMemoryPool *pool, void *infos_p)
 		reserve = ZRARRAYOP_GET(rbpool, 1, initInfos->infos[ZRMPoolRBitsInfos_reserve].offset);
 		rbpool->nbZRBits = initInfos->nbZRBits;
 		pool = &rbpool->pool;
+		finit = finitPool_bits;
 		break;
 	}
 	case ZRMPoolReserveMode_list:
@@ -786,6 +782,7 @@ void ZRMPoolReserve_init(ZRMemoryPool *pool, void *infos_p)
 		rlpool->nextUnused = ZRARRAYOP_GET(rlpool, 1, initInfos->infos[ZRMPoolRListInfos_nextUnused].offset);
 		reserve = ZRARRAYOP_GET(rlpool, 1, initInfos->infos[ZRMPoolRListInfos_reserve].offset);
 		pool = &rlpool->pool;
+		finit = finitPool_list;
 		break;
 	}
 	case ZRMPoolReserveMode_chunk:
@@ -797,6 +794,7 @@ void ZRMPoolReserve_init(ZRMemoryPool *pool, void *infos_p)
 		rcpool->chunks = ZRARRAYOP_GET(rcpool, 1, initInfos->infos[ZRMPoolRChunkInfos_chunk].offset);
 		reserve = ZRARRAYOP_GET(rcpool, 1, initInfos->infos[ZRMPoolRChunkInfos_reserve].offset);
 		pool = &rcpool->pool;
+		finit = finitPool_chunk;
 		break;
 	}
 	}
@@ -807,7 +805,7 @@ void ZRMPoolReserve_init(ZRMemoryPool *pool, void *infos_p)
 	else
 		allocator = initInfos->allocator;
 
-	*pinfos = (ZRMPoolCommonInfos ) { //
+	*pinfos = (ZRMPoolCommonInfos ) { /* */
 		.areaMetaDataInfos = initInfos->areaHeadInfos[ZRAreaHeadInfos_userMetaData],
 		.areaHeadSize = initInfos->areaHeadSize,
 		.nbBlocksForAreaHead = initInfos->nbBlocksForAreaHead,
@@ -828,7 +826,11 @@ void ZRMPoolReserve_init(ZRMemoryPool *pool, void *infos_p)
 	else
 		strategy = zrlib_internPType(&ref);
 
-	ZRMPOOL_INIT(pool, initInfos->blockInfos, &strategy->strategy);
+	*pool = (ZRMemoryPool ) { /**/
+		.strategy = &strategy->strategy,
+		.blockInfos = initInfos->blockInfos,
+		};
+	finit(pool);
 }
 
 ZRMemoryPool* ZRMPoolReserve_new(void *infos_p)

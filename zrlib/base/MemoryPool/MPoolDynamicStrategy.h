@@ -12,9 +12,9 @@
 #include <zrlib/base/MemoryPool/MemoryPool.h>
 #include <zrlib/base/Allocator/Allocator.h>
 
-// ============================================================================
-// HELP
-// ============================================================================
+/* ========================================================================= */
+/* HELP */
+/* ========================================================================= */
 
 ZRObjInfos ZRMPoolDSIInfosObjInfos(void);
 
@@ -33,6 +33,6 @@ ZRMemoryPool* ZRMPoolDS_createBS(____ size_t initialBucketSize, ________________
 ZRMemoryPool* ZRMPoolDS_createMaxFB(_ _________________________ size_t maxFreeBuckets, ZRObjInfos objInfos, ZRAllocator *allocator);
 ZRMemoryPool* ZRMPoolDS_createDefault(_________________________ ______________________ ZRObjInfos objInfos, ZRAllocator *allocator);
 
-// ============================================================================
+/* ========================================================================= */
 
 #endif

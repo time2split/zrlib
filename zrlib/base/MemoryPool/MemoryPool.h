@@ -17,12 +17,12 @@
 #pragma zrlib conf generate.target "/src/base/MemoryPool/MemoryPool.c" "."
 #pragma zrlib conf generate.prefix ZRMPool_
 
-// ============================================================================
+/* ========================================================================= */
 
 typedef struct ZRMemoryPoolS ZRMemoryPool;
 typedef struct ZRMemoryPoolStrategyS ZRMemoryPoolStrategy;
 
-// ============================================================================
+/* ========================================================================= */
 
 struct ZRMemoryPoolS
 {
@@ -49,7 +49,6 @@ struct ZRMemoryPoolS
 
 struct ZRMemoryPoolStrategyS
 {
-	void (*finit)(ZRMemoryPool *pool);
 	void (*fdestroy)(ZRMemoryPool *pool);
 	void (*fclean)(ZRMemoryPool *pool);
 
@@ -65,19 +64,7 @@ struct ZRMemoryPoolStrategyS
 	void* (*fareaMetaData)(ZRMemoryPool *pool, void *firstBlock);
 };
 
-// ============================================================================
-
-#pragma zrlib generate function init
-ZRMUSTINLINE
-static inline void ZRMPOOL_INIT(ZRMemoryPool *pool, ZRObjInfos blockInfos, ZRMemoryPoolStrategy *strategy)
-{
-	*pool = (struct ZRMemoryPoolS)
-	{
-		.blockInfos = blockInfos,
-		.strategy = strategy,
-	};
-	strategy->finit(pool);
-}
+/* ========================================================================= */
 
 #pragma zrlib generate function destroy
 ZRMUSTINLINE
@@ -135,7 +122,7 @@ static inline void* ZRMPOOL_RELEASE_NB(ZRMemoryPool *pool, void *firstBlock, siz
 	return pool->strategy->frelease(pool, firstBlock, nb);
 }
 
-// ============================================================================
+/* ========================================================================= */
 
 #pragma zrlib write generate headers
 

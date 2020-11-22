@@ -16,14 +16,14 @@
 #include <stddef.h>
 #include <stdio.h>
 
-// ============================================================================
+/* ========================================================================= */
 
 typedef struct ZRMPoolDynamicStrategyS ZRMPoolDynamicStrategy;
 typedef struct ZRAreaMetaDataS ZRAreaMetaData;
 typedef struct ZRMPoolDSS ZRMPoolDS;
 typedef struct ZRMPoolDS_bucketS ZRMPoolDS_bucket;
 
-// ============================================================================
+/* ========================================================================= */
 
 struct ZRMPoolDS_bucketS
 {
@@ -32,7 +32,7 @@ struct ZRMPoolDS_bucketS
 	size_t areaMetaDataOffset;
 };
 
-// ============================================================================
+/* ========================================================================= */
 
 struct ZRMPoolDynamicStrategyS
 {
@@ -57,7 +57,7 @@ typedef enum
 	MPOOLDSINFOS_NB,
 } MPoolDSInfos;
 
-// ============================================================================
+/* ========================================================================= */
 
 struct ZRAreaMetaDataS
 {
@@ -79,7 +79,7 @@ struct ZRMPoolDSS
 	unsigned staticStrategy :1;
 };
 
-// ============================================================================
+/* ========================================================================= */
 
 #define ZRMPOOLDS(pool) ((ZRMPoolDS*)(pool))
 #define ZRMPOOL_STRATEGY(pool) ((ZRMPoolDynamicStrategy*)((pool)->strategy))
@@ -88,8 +88,8 @@ struct ZRMPoolDSS
 #define INITIAL_BUCKETS_SPACE 1024
 #define INITIAL_BUCKET_SIZE   1024
 
-// ============================================================================
-// Internal functions
+/* ========================================================================= */
+/* Internal functions */
 
 static
 void MPoolDSInfos_make(ZRObjAlignInfos *out, bool staticStrategy)
@@ -150,10 +150,11 @@ static inline void bucket_done_p(void *bucket)
 	bucket_done(bucket);
 }
 
-// ============================================================================
-// MemoryPool functions
+/* ========================================================================= */
+/* MemoryPool functions */
 
-void finitPool(ZRMemoryPool *pool)
+ZRMUSTINLINE
+static inline void initPool(ZRMemoryPool *pool)
 {
 	size_t const psize = sizeof(void*) * 2;
 	ZRMPoolDS *const dspool = ZRMPOOLDS(pool);
@@ -162,7 +163,7 @@ void finitPool(ZRMemoryPool *pool)
 	addBucket(pool, 0);
 }
 
-void fclean(ZRMemoryPool *pool)
+static void fclean(ZRMemoryPool *pool)
 {
 	ZRMPoolDS *const dspool = ZRMPOOLDS(pool);
 	size_t const nbBuckets = ZRVECTOR_NBOBJ(dspool->buckets);
@@ -209,7 +210,7 @@ static inline void* freserveInBucket(ZRMemoryPool *pool, size_t nb, ZRMPoolDS_bu
 	return ret;
 }
 
-void* freserve(ZRMemoryPool *pool, size_t nb)
+static void* freserve(ZRMemoryPool *pool, size_t nb)
 {
 	ZRMPoolDS *const dspool = ZRMPOOLDS(pool);
 	size_t const nbBuckets = ZRVECTOR_NBOBJ(dspool->buckets);
@@ -236,7 +237,7 @@ static inline void* freleaseInBucket(ZRMPoolDS *dspool, ZRMPoolDS_bucket *bucket
 
 	if (bucket->pool->nbBlocks == 0)
 	{
-		// Clean the bucket
+		/* Clean the bucket */
 		if (dspool->nbFreeBuckets == dspool->maxFreeBuckets)
 		{
 			bucket_done(bucket);
@@ -248,7 +249,7 @@ static inline void* freleaseInBucket(ZRMPoolDS *dspool, ZRMPoolDS_bucket *bucket
 	return newFirstBlock;
 }
 
-void* frelease(ZRMemoryPool *pool, void *firstBlock, size_t nb)
+static void* frelease(ZRMemoryPool *pool, void *firstBlock, size_t nb)
 {
 	ZRMPoolDS *const dspool = ZRMPOOLDS(pool);
 	ZRMPoolDS_bucket *bucket;
@@ -261,7 +262,7 @@ void* frelease(ZRMemoryPool *pool, void *firstBlock, size_t nb)
 	ZRMemoryPool *const blockPool = areaMetaData.pool;
 	size_t i, c;
 
-// Search the bucket in the vector
+	/* Search the bucket in the vector */
 	for (i = 0, c = ZRVECTOR_NBOBJ(dspool->buckets); i < c; i++)
 	{
 		bucket = ZRVECTOR_GET(dspool->buckets, i);
@@ -290,7 +291,7 @@ static void inline fdone(ZRMemoryPool *pool)
 		ZRFREE(dspool->allocator, pool->strategy);
 }
 
-// ============================================================================
+/* ========================================================================= */
 
 static ZRVector* fcreateBuckets(ZRMemoryPool *pool)
 {
@@ -315,17 +316,16 @@ static void fdestroyBuckets(ZRVector *buckets)
 
 void ZRMPoolDSStrategy_init(ZRMemoryPoolStrategy *strategy)
 {
-	*(ZRMPoolDynamicStrategy*)strategy = (ZRMPoolDynamicStrategy ) { //
-		.strategy = (ZRMemoryPoolStrategy ) { //
-			.finit = finitPool, //
-			.fclean = fclean, //
-			.fareaNbBlocks = fareaNbBlocks, //
-			.fareaMetaData = fuserAreaMetaData, //
-			.freserve = freserve, //
-			.frelease = frelease, //
-			},//
-		.fcreateBuckets = fcreateBuckets, //
-		.fdestroyBuckets = fdestroyBuckets, //
+	*(ZRMPoolDynamicStrategy*)strategy = (ZRMPoolDynamicStrategy ) { /**/
+		.strategy = (ZRMemoryPoolStrategy ) { /**/
+			.fclean = fclean, /**/
+			.fareaNbBlocks = fareaNbBlocks, /**/
+			.fareaMetaData = fuserAreaMetaData, /**/
+			.freserve = freserve, /**/
+			.frelease = frelease, /**/
+			},/**/
+		.fcreateBuckets = fcreateBuckets, /**/
+		.fdestroyBuckets = fdestroyBuckets, /**/
 		};
 }
 
@@ -337,7 +337,7 @@ void ZRMPoolDS_destroy(ZRMemoryPool *pool)
 	ZRFREE(allocator, pool);
 }
 
-// ============================================================================
+/* ========================================================================= */
 
 typedef struct
 {
@@ -370,7 +370,7 @@ static inline void ZRMPoolDSIInfos_validate(ZRMPoolDSInitInfos *initInfos)
 void ZRMPoolDSIInfos(void *infos_out, ZRObjInfos objInfos)
 {
 	ZRMPoolDSInitInfos *initInfos = (ZRMPoolDSInitInfos*)infos_out;
-	*initInfos = (ZRMPoolDSInitInfos ) { //
+	*initInfos = (ZRMPoolDSInitInfos ) { /**/
 		.initialBucketSize = INITIAL_BUCKET_SIZE,
 		.maxFreeBuckets = DEFAULT_MAX_FREE_BUCKETS,
 		.objInfos = objInfos,
@@ -422,9 +422,10 @@ void ZRMPoolDS_init(ZRMemoryPool *pool, void *initInfos_p)
 	else
 		allocator = initInfos->allocator;
 
-	*dspool = (ZRMPoolDS ) { //
-		.pool = (ZRMemoryPool ) { //
+	*dspool = (ZRMPoolDS ) { /**/
+		.pool = (ZRMemoryPool ) { /**/
 			.strategy = strategy,
+			.blockInfos = initInfos->objInfos,
 			},
 		.initialBucketSize = initInfos->initialBucketSize,
 		.maxFreeBuckets = initInfos->maxFreeBuckets,
@@ -433,7 +434,7 @@ void ZRMPoolDS_init(ZRMemoryPool *pool, void *initInfos_p)
 		};
 	ZRMPoolDSStrategy_init(strategy);
 
-	ZRMPool_init(pool, initInfos->objInfos, strategy);
+	initPool(pool);
 }
 
 ZRMemoryPool* ZRMPoolDS_new(void *initInfos_p)
