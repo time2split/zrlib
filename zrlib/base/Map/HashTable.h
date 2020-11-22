@@ -12,17 +12,17 @@
 #include <zrlib/base/Vector/Vector.h>
 #include <zrlib/base/struct.h>
 
-// ============================================================================
+/* ========================================================================= */
 
 void ZRHashTable_growStrategy(ZRMap *map, zrflimit fupLimit, zrfincrease fincrease);
 void ZRHashTable_shrinkStrategy(ZRMap *map, zrflimit fdownLimit, zrfdecrease fdecrease);
 
 ZRObjInfos ZRHashTableIInfosObjInfos(void);
 
-void ZRHashTableIInfos( //
-	void *iinfos, //
+void ZRHashTableIInfos(
+	void *iinfos,
 	ZRObjInfos key, ZRObjInfos obj,
-	zrfuhash fhash[], //
+	zrfuhash fhash[],
 	size_t nbfhash
 	);
 void ZRHashTableIInfos_allocator(void *iinfos, ZRAllocator *allocator);
@@ -36,9 +36,9 @@ ZRMap* ZRHashTable_new(void *iinfos);
 
 ZRMap* ZRHashTable_create(
 	ZRObjInfos key, ZRObjInfos obj,
-	zrfuhash fhash[], //
-	size_t nbfhash, //
-	ZRAllocator *allocator //
+	zrfuhash fhash[],
+	size_t nbfhash,
+	ZRAllocator *allocator
 	);
 
 #endif

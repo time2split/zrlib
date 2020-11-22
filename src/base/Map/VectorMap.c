@@ -342,7 +342,7 @@ ZRVector* ZRVectorMap_vector(ZRMap *map)
 
 static void fdestroy(ZRMap *map)
 {
-	ZRMap_done(map);
+	fdone(map);
 	ZRAllocator *allocator = ZRVMAP(map)->allocator;
 	ZRFREE(allocator, map);
 }
@@ -400,7 +400,6 @@ static void ZRVectorMapStrategy_init(ZRVectorMapStrategy *strategy, VectorMapIni
 						.fget = fget,
 						.fdelete = fdelete,
 						.fdeleteAll = fdeleteAll,
-						.fdone = fdone,
 						.fdestroy = tmp_fdestroy,
 					},
 			};
@@ -417,7 +416,6 @@ static void ZRVectorMapStrategy_init(ZRVectorMapStrategy *strategy, VectorMapIni
 						.fget = eq_fget,
 						.fdelete = eq_fdelete,
 						.fdeleteAll = fdeleteAll,
-						.fdone = fdone,
 						.fdestroy = tmp_fdestroy,
 					},
 			};

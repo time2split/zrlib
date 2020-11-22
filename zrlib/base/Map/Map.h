@@ -16,7 +16,7 @@
 #pragma zrlib conf generate.target "/src/base/Map/Map.c" "."
 #pragma zrlib conf generate.prefix ZRMap_
 
-// ============================================================================
+/* ========================================================================= */
 
 typedef struct ZRMapS ZRMap;
 typedef struct ZRMapStrategyS ZRMapStrategy;
@@ -27,7 +27,7 @@ typedef struct ZRMapKeyValS
 	void *val;
 } ZRMapKeyVal;
 
-// ============================================================================
+/* ========================================================================= */
 
 struct ZRMapStrategyS
 {
@@ -54,12 +54,6 @@ struct ZRMapStrategyS
 	size_t (*fcpyKeyValPtr)(ZRMap *map, ZRMapKeyVal *cpyTo, size_t offset, size_t maxNbCpy);
 
 	/**
-	 * Clean the memory used by the map.
-	 * The map MUST NOT be used after this call.
-	 */
-	void (*fdone)(ZRMap *map);
-
-	/**
 	 * (optional)
 	 */
 	void (*fdestroy)(ZRMap *map);
@@ -79,30 +73,23 @@ struct ZRMapS
 
 #define ZRMAP(M) ((ZRMap*)(M))
 
-// ============================================================================
+/* ========================================================================= */
 
 #pragma zrlib generate function init
 ZRMUSTINLINE
 static inline void ZRMAP_INIT(ZRMap *map, ZRObjInfos key, ZRObjInfos obj, ZRMapStrategy *strategy)
 {
-	ZRMap cpy = { //
+	ZRMap cpy = { /**/
 		.keyInfos = key,
 		.objInfos = obj,
 		.nbObj = 0,
 		.strategy = strategy,
-		}
+	}
 	;
 	*map = cpy;
 
 	if (strategy->finitMap)
 		strategy->finitMap(map);
-}
-
-#pragma zrlib generate function done
-ZRMUSTINLINE
-static inline void ZRMAP_DONE(ZRMap *map)
-{
-	map->strategy->fdone(map);
 }
 
 #pragma zrlib generate function destroy
@@ -189,7 +176,7 @@ static inline void ZRMAP_DELETEALL(ZRMap *map)
 	map->strategy->fdeleteAll(map);
 }
 
-// Help
+/* Help */
 
 #pragma zrlib generate function nbObj
 ZRMUSTINLINE
@@ -212,8 +199,8 @@ static inline size_t ZRMAP_OBJSIZE(ZRMap *map)
 	return map->objInfos.size;
 }
 
-// ============================================================================
-// HELP
+/* ========================================================================= */
+/* HELP */
 
 #pragma zrlib generate function getKeyValPtr
 ZRMUSTINLINE
@@ -224,10 +211,8 @@ static inline ZRMapKeyVal ZRMAP_GETKEYVALPTR(ZRMap *map, size_t offset)
 	return ret;
 }
 
-// ============================================================================
+/* ========================================================================= */
 
 #pragma zrlib write generate headers
-
-
 
 #endif
