@@ -74,6 +74,7 @@ static inline unsigned ZRBITS_LZCNT_STD(ZRBits bits)
 		ret++;
 		bits <<= 1;
 	}
+	return ret;
 }
 
 static inline unsigned ZRBITS_RZCNT_STD(ZRBits bits)
