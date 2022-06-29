@@ -74,6 +74,7 @@ struct ZRVectorS
 
 static inline void ZRVECTOR_ADD_NB(ZRVector *vec, size_t nb, void *src);
 static inline void ZRVECTOR_DELETE_ALL(ZRVector *vec);
+static inline void ZRVECTOR_CHANGEOBJSIZE(ZRVector *vec, ZRObjInfos objInfos);
 
 // ============================================================================
 // ROUTINE FUNCTION
@@ -343,14 +344,6 @@ static inline void ZRVECTOR_ADDFIRSTPTR_NB(ZRVector *vec, size_t nb, void *src, 
 }
 
 // ============================================================================
-
-void* ZRVector_arrayp(ZRVector *vec);
-ZRArray ZRVector_array(ZRVector *vec);
-ZRObjInfos ZRVector_objInfos(ZRVector *vec);
-size_t ZRVector_nbObj(ZRVector *vec);
-size_t ZRVector_capacity(ZRVector *vec);
-size_t ZRVector_objSize(ZRVector *vec);
-size_t ZRVector_objAlignment(ZRVector *vec);
 
 #pragma zrlib write generate headers
 
