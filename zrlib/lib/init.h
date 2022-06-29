@@ -10,7 +10,8 @@
 #include <zrlib/base/struct.h>
 
 #define ZRSERVICE_XLIST() \
-	X(allocator, "allocator")
+	X(allocator, "allocator") \
+	X(allocator_local, "allocator.local") \
 
 typedef struct
 {

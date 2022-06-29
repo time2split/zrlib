@@ -12,9 +12,10 @@
 #include <threads.h>
 
 #define X(ID,NAME) { 0, NAME },
-ZRServiceID ZRSERVICESID[ZRSERVICES_NB] = {
+ZRServiceID ZRSERVICESID[ZRSERVICES_NB] = { //
 	ZRSERVICE_XLIST()
-};
+	}
+;
 #undef X
 
 thread_local struct
@@ -48,10 +49,10 @@ static int cmp_obj(void *ap, void *bp, void *data)
 	return memcmp(a->object, b->object, a->infos.size);
 }
 
-
 static void zrlib_initServices(void)
 {
-	ZRSERVICE_ID(ZRService_allocator) = zrlib_registerService(ZRSERVICE_NAME(ZRService_allocator), &ZRPTYPE_OBJECTP(&T_DATA.allocator));
+	ZRSERVICE_ID(ZRService_allocator)= zrlib_registerService(ZRSERVICE_NAME(ZRService_allocator), &ZRPTYPE_OBJECTP(&T_DATA.allocator));
+	ZRSERVICE_ID(ZRService_allocator_local)= zrlib_registerService(ZRSERVICE_NAME(ZRService_allocator_local), &ZRPTYPE_OBJECTP(&T_DATA.allocator));
 }
 
 void zrlib_initCurrentThread(void)
