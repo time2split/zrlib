@@ -10,8 +10,6 @@
 #ifndef ZRTREEBUILDER_H
 #define ZRTREEBUILDER_H
 
-#include <zrlib/syntax_pad.h>
-
 #include <stdlib.h>
 
 typedef struct ZRTreeBuilderS ZRTreeBuilder;

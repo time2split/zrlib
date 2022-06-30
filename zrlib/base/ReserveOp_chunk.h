@@ -8,7 +8,6 @@
 
 #include <zrlib/base/MemoryOp.h>
 
-#include <zrlib/syntax_pad.h>
 #include <assert.h>
 #include <stdint.h>
 #include <stdlib.h>

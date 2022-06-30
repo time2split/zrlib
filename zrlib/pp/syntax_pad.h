@@ -3,8 +3,9 @@
  * @date jeudi 11 avril 2019, 22:53:54 (UTC+0200)
  */
 
-#ifndef SYNTAX_PAD_H_
-#define SYNTAX_PAD_H_
+#ifndef ZRPP_H
+#error "No manual include allowed"
+#endif
 
 #define _
 #define __
@@ -31,5 +32,3 @@
 #define _______________________
 #define ________________________
 #define _________________________
-
-#endif /* SYNTAX_PAD_H_ */

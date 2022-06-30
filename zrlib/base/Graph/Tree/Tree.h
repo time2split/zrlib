@@ -9,7 +9,6 @@
 #include <zrlib/config.h>
 #include <zrlib/base/Allocator/Allocator.h>
 #include <zrlib/base/Iterator/Iterator.h>
-#include <zrlib/syntax_pad.h>
 
 #include "../Graph.h"
 
