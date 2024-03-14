@@ -1,0 +1,6 @@
+#pragma pcp generate area
+#pragma pcp generate begin mtime=1709572617 src="test/test.h"
+// 2024-03-04T17:16:57+00:00
+float b(float b)
+#pragma pcp generate end
+

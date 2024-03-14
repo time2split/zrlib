@@ -1,0 +1,63 @@
+
+#define eval_(...) __VA_ARGS__
+#define eval2(...) eval_(eval_(__VA_ARGS__))
+#define eval4(...) eval2(eval2(__VA_ARGS__))
+#define eval eval4
+#define DEFER()
+
+#define C(A,B) A ## B
+
+#define GETB(A, B, ...) B
+#define CHECK(...) GETB(__VA_ARGS__, 0)
+#define PROBE() ~,1
+
+#define BOOL(B) NOT(CHECK(C(IS_,B)))
+#define IS_0 PROBE()
+
+#define NOT(B) C(NOT_,B)
+#define NOT_1 0
+#define NOT_0 1
+
+#define expand(...) __VA_ARGS__
+#define expand_forget(...) __VA_ARGS__ forget
+#define forget_expand expand forget
+#define forget(...)
+
+#define _IF(B) __IF(BOOL(B))
+#define __IF(B) C(_IF, B)
+#define _IF0(A, ...) __VA_ARGS__
+#define _IF1(A, ...) A
+
+#define IF(B) _IF(B)(expand,forget)
+#define IFELSE(B) _IF(B)(expand_forget,forget_expand)
+
+char * a = eval(IFELSE(0)("true")("false"));
+
+#define A() A, A DEFER()()
+#define B() B, A ()
+
+#define IS_PARENT(P) CHECK(ISP P)
+#define ISP() PROBE()
+
+#define HEAD(A, ...) A
+#define TAIL(A, ...) __VA_ARGS__
+#define LEXPAND(L) _LEXPAND L
+#define _LEXPAND(...) __VA_ARGS__
+
+#define MAPL(M,L) (MAP(M, LEXPAND(L)))
+
+#define MAP(M, ...) expand( \
+	M(HEAD(__VA_ARGS__)) \
+	IF(NOT(IS_PARENT(TAIL(__VA_ARGS__)))) \
+	(, MAP DEFER DEFER DEFER ()()() (M, TAIL(__VA_ARGS__))) \
+)
+
+#define INC(A) A+1
+
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+	eval(MAPL(INC,(1,2,3, ())));
+
+}

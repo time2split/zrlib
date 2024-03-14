@@ -1,0 +1,7 @@
+<?php return array (
+  'debug' => false,
+  'generate.target' => NULL,
+  'generate.prefix' => NULL,
+  'cleaned' => NULL,
+  'clean' => true,
+)

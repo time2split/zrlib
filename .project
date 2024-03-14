@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>zrlib-Debug@zrlib</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.cdt.make.core.makeBuilder</name>
+			<triggers>clean,full,incremental,</triggers>
+			<arguments>
+				<dictionary>
+					<key>org.eclipse.cdt.core.errorOutputParser</key>
+					<value>org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.append_environment</key>
+					<value>true</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.autoBuildTarget</key>
+					<value>all</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.build.arguments</key>
+					<value>-j8</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.build.command</key>
+					<value>/usr/bin/make</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.build.location</key>
+					<value>/home/zuri/work/prog/C/zrlib</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.build.target.auto</key>
+					<value>all</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.build.target.clean</key>
+					<value>clean</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.build.target.inc</key>
+					<value>all</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.buildArguments</key>
+					<value></value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.buildLocation</key>
+					<value>/home/zuri/work/prog/C/zrlib</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.cleanBuildTarget</key>
+					<value>clean</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.contents</key>
+					<value>org.eclipse.cdt.make.core.activeConfigSettings</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.enableAutoBuild</key>
+					<value>false</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.enableCleanBuild</key>
+					<value>true</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.enableFullBuild</key>
+					<value>true</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.enabledIncrementalBuild</key>
+					<value>true</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.environment</key>
+					<value>VERBOSE=1|CMAKE_NO_VERBOSE=1|</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.fullBuildTarget</key>
+					<value>all</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.stopOnError</key>
+					<value>true</value>
+				</dictionary>
+				<dictionary>
+					<key>org.eclipse.cdt.make.core.useDefaultBuildCmd</key>
+					<value>false</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.cdt.make.core.ScannerConfigBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.cdt.make.core.makeNature</nature>
+		<nature>org.eclipse.cdt.make.core.ScannerConfigNature</nature>
+		<nature>org.eclipse.cdt.core.ccnature</nature>
+		<nature>org.eclipse.cdt.core.cnature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>[Subprojects]</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>[Targets]</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/CMake Rules</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Object Files</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Object Libraries</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Precompile Header File</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Resources</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/AddressOp.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/AddressOp.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/Allocator.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Allocator/Allocator.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/Array.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Array.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/ArrayOp.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/ArrayOp.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/Bits.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Bits/Bits.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/CAllocator.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Allocator/CAllocator.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/FilterIterator.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Iterator/FilterIterator.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/Graph.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Graph/Graph.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/HashTable.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Map/HashTable.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/IDGenerator.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Identifier/IDGenerator/IDGenerator.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/Identifier.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Identifier/Identifier.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/Iterator.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Iterator/Iterator.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/List.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/List/List.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/MPoolDynamicStrategy.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/MemoryPool/MPoolDynamicStrategy.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/MPoolReserve.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/MemoryPool/MPoolReserve.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/Map.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Map/Map.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/MapIdentifier.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Identifier/MapIdentifier.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/MemoryOp.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/MemoryOp.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/MemoryPool.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/MemoryPool/MemoryPool.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/ReserveOp_bits.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/ReserveOp_bits.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/ReserveOp_chunk.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/ReserveOp_chunk.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/ReserveOp_list.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/ReserveOp_list.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/ResizeOp.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/ResizeOp.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/SimpleGraph.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Graph/SimpleGraph.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/SimpleTree.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Graph/Tree/SimpleTree.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/Tree.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Graph/Tree/Tree.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/Vector.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Vector/Vector.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/Vector2SideStrategy.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Vector/Vector2SideStrategy.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/VectorMap.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Map/VectorMap.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/config.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/config.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/fcmp.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Algorithm/fcmp.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/hash.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Algorithm/hash.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/init.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/lib/init.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/macro.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/macro.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/math.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/math.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/sort.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/Algorithm/sort.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Header Files/struct.h</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/zrlib/base/struct.h</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/AddressOp.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/AddressOp.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/ArrayOp.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/ArrayOp.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/Bits.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Bits/Bits.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/CAllocator.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Allocator/CAllocator.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/FilterIterator.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Iterator/FilterIterator.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/Graph.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Graph/Graph.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/HashTable.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Map/HashTable.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/IDGenerator.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Identifier/IDGenerator/IDGenerator.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/Identifier.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Identifier/Identifier.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/Iterator.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Iterator/Iterator.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/List.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/List/List.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/MPoolDynamicStrategy.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/MemoryPool/MPoolDynamicStrategy.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/MPoolReserve.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/MemoryPool/MPoolReserve.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/Map.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Map/Map.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/MapIdentifier.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Identifier/MapIdentifier.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/MemoryOp.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/MemoryOp.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/MemoryPool.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/MemoryPool/MemoryPool.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/ReserveOp_bits.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/ReserveOp_bits.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/ReserveOp_chunk.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/ReserveOp_chunk.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/ReserveOp_list.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/ReserveOp_list.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/ResizeOp.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/ResizeOp.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/SimpleGraph.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Graph/SimpleGraph.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/SimpleGraphBuilder.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Graph/SimpleGraphBuilder.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/SimpleTree.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Graph/Tree/SimpleTree.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/SimpleTreeBuilder.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Graph/Tree/SimpleTreeBuilder.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/Tree.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Graph/Tree/Tree.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/Vector.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Vector/Vector.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/Vector2SideStrategy.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Vector/Vector2SideStrategy.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/VectorMap.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Map/VectorMap.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/fcmp.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Algorithm/fcmp.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/hash.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Algorithm/hash.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/init.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/lib/init.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/math.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/math.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/sort.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/Algorithm/sort.c</location>
+		</link>
+		<link>
+			<name>[Targets]/[lib] zrlib/Source Files/struct.c</name>
+			<type>1</type>
+			<location>/home/zuri/work/prog/C/zrlib/src/base/struct.c</location>
+		</link>
+	</linkedResources>
+</projectDescription>
